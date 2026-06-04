@@ -155,7 +155,7 @@ function SummaryMetricCard({ metric }: { metric: AdminSummaryMetric }) {
     <Card className="h-[116px] rounded-lg p-4">
       <div className="flex h-full items-center gap-4">
         <div className={`relative grid h-14 w-14 shrink-0 place-items-center rounded-lg ${tone.icon}`}>
-          <ImageIcon className="h-12 w-12 object-contain drop-shadow-sm" src={iconSrc} />
+          <ImageIcon className="h-[52px] w-[52px] object-contain drop-shadow-sm" src={iconSrc} />
         </div>
         <div className="min-w-0">
           <p className="font-display text-sm font-extrabold text-slate-700">{metric.label}</p>
@@ -182,8 +182,8 @@ function RoleCard({ role }: { role: AdminRole }) {
   return (
     <div className="flex min-h-[268px] flex-col rounded-lg border border-slate-200 bg-white p-4">
       <div className="flex items-start gap-3">
-        <div className={`grid h-11 w-11 shrink-0 place-items-center rounded-full ${tone.icon}`}>
-          <ImageIcon className="h-9 w-9 object-contain drop-shadow-sm" src={iconSrc} />
+        <div className={`grid h-12 w-12 shrink-0 place-items-center rounded-full ${tone.icon}`}>
+          <ImageIcon className="h-11 w-11 object-contain drop-shadow-sm" src={iconSrc} />
         </div>
         <div className="min-w-0">
           <p className="font-display text-[13px] font-extrabold leading-5 text-slate-800">{role.name}</p>
