@@ -4,15 +4,12 @@ import { type ReactNode } from 'react';
 import {
   ArrowUp,
   Ban,
-  BookOpen,
   CalendarDays,
   CalendarPlus,
   Check,
   ChevronRight,
   CircleHelp,
-  Coffee,
   Info,
-  Landmark,
   SlidersHorizontal,
   Star,
   TrendingUp,
@@ -35,6 +32,9 @@ import crowdIcon from '../../../asset/image-removebg-preview (11).png';
 import calendarIcon from '../../../asset/image-Photoroom (66).png';
 import pinIcon from '../../../asset/image-Photoroom (67).png';
 import trendIcon from '../../../asset/image-Photoroom (68).png';
+import museumIcon from '../../../asset/image-removebg-preview (20).png';
+import cafeIcon from '../../../asset/image-removebg-preview (21).png';
+import bookIcon from '../../../asset/image-removebg-preview (2).png';
 import { getReTripMonitorSnapshot } from '../../services/retripApi';
 import {
   type ReTripControlAction,
@@ -94,10 +94,10 @@ const kpiAssetIcons: Record<ReTripKpi['icon'], string> = {
 };
 
 const flowTargetIcons = {
-  museum: Landmark,
-  cafe: Coffee,
-  book: BookOpen,
-  calendar: CalendarDays,
+  museum: museumIcon,
+  cafe: cafeIcon,
+  book: bookIcon,
+  calendar: calendarIcon,
 };
 
 const controlIcons = {
@@ -186,7 +186,7 @@ function KpiCard({ metric }: { metric: ReTripKpi }) {
 }
 
 function FlowTargetNode({ target, index }: { target: ReTripFlowTarget; index: number }) {
-  const Icon = flowTargetIcons[target.icon];
+  const iconSrc = flowTargetIcons[target.icon];
   const tone = targetToneClasses[target.tone];
   const topOffsets = ['top-[26px]', 'top-[112px]', 'top-[198px]', 'top-[284px]'];
 
@@ -199,7 +199,7 @@ function FlowTargetNode({ target, index }: { target: ReTripFlowTarget; index: nu
     >
       <div className="flex min-w-0 items-center gap-3">
         <span className={cn('grid h-10 w-10 shrink-0 place-items-center rounded-full', tone.fill)}>
-          <Icon aria-hidden="true" size={22} />
+          <img alt="" aria-hidden="true" className="h-7 w-7 object-contain" draggable={false} src={iconSrc} />
         </span>
         <p className="truncate text-sm font-black text-slate-800">{target.name}</p>
       </div>
