@@ -202,7 +202,7 @@ export function OverviewPage() {
           <h2 className="font-admin-title text-[16px] leading-none text-slate-950 2xl:text-[17px]">서울 운영 스냅샷</h2>
           <div className="mt-2.5 grid h-[198px] grid-cols-[124px_1fr] gap-3 rounded-lg border border-slate-100 p-2.5 2xl:mt-3 2xl:h-[210px] 2xl:grid-cols-[142px_1fr] 2xl:gap-4 2xl:p-3">
             <div className="flex flex-col justify-between">
-              <div className="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-2.5 2xl:px-3 2xl:py-3">
+              <div className="px-0.5 py-1 2xl:px-1 2xl:py-1.5">
                 <div className="flex items-center gap-2">
                   <IconImage className="h-6 w-6 2xl:h-8 2xl:w-8" iconKey="check" />
                   <div>
