@@ -37,12 +37,13 @@ import {
   type RetripEffectPoint,
 } from '../../types/reports';
 
-const metricIconAssets: Partial<Record<ReportMetric['iconKey'], string>> = {
+const metricIconAssets: Record<ReportMetric['iconKey'], string> = {
   alert: new URL('../../../asset/image-removebg-preview (5).png', import.meta.url).href,
   retrip: new URL('../../../asset/image-removebg-preview (6).png', import.meta.url).href,
   switch: new URL('../../../asset/image-removebg-preview (7).png', import.meta.url).href,
   culture: new URL('../../../asset/image-removebg-preview (8).png', import.meta.url).href,
-  clock: new URL('../../../asset/image-removebg-preview (4).png', import.meta.url).href,
+  document: new URL('../../../asset/image-Photoroom (38).png', import.meta.url).href,
+  success: new URL('../../../asset/image-removebg-preview (10).png', import.meta.url).href,
 };
 
 const reportCoverImage = new URL('../../../asset/a34420e0-119e-4642-b5c8-439d1ce5b399.png', import.meta.url).href;
@@ -168,21 +169,22 @@ function MetricTile({ metric }: { metric: ReportMetric }) {
   return (
     <Card className="flex h-[104px] items-center rounded-xl p-4 [@media(min-height:1000px)]:h-[118px]">
       <div className="mr-4 flex h-[60px] w-[60px] shrink-0 items-center justify-center [@media(min-height:1000px)]:h-[72px] [@media(min-height:1000px)]:w-[72px]">
-        {iconAsset ? (
-          <img alt="" aria-hidden="true" className="h-[58px] w-[58px] object-contain [@media(min-height:1000px)]:h-[66px] [@media(min-height:1000px)]:w-[66px]" src={iconAsset} />
-        ) : (
-          <FileText aria-hidden="true" className={toneText[metric.tone]} size={46} strokeWidth={2.5} />
-        )}
+        <img
+          alt=""
+          aria-hidden="true"
+          className="h-[60px] w-[60px] object-contain drop-shadow-[0_8px_12px_rgba(15,23,42,0.10)] [@media(min-height:1000px)]:h-[68px] [@media(min-height:1000px)]:w-[68px]"
+          src={iconAsset}
+        />
       </div>
       <div className="min-w-0">
-        <p className="truncate text-[15px] font-black leading-none text-slate-950">{metric.label}</p>
-        <p className={`mt-2 truncate text-[30px] font-black leading-none tracking-normal ${toneText[metric.tone]}`}>
+        <p className="font-admin-label truncate text-[14px] leading-none text-slate-950">{metric.label}</p>
+        <p className={`font-admin-metric mt-2 truncate text-[29px] font-extrabold leading-none tracking-normal ${toneText[metric.tone]}`}>
           {metric.value}
-          {metric.unit ? <span className="ml-2 text-base font-black text-slate-900">{metric.unit}</span> : null}
+          {metric.unit ? <span className="font-admin-label ml-2 text-[15px] text-slate-900">{metric.unit}</span> : null}
         </p>
-        <p className="mt-2 text-sm font-bold leading-none text-slate-600">
+        <p className="font-admin-caption mt-2 text-[13px] leading-none text-slate-600">
           {metric.helper}
-          <span className={`ml-4 text-xs font-black ${deltaClass(metric.deltaTone)}`}>{metric.delta}</span>
+          <span className={`font-admin-metric ml-4 text-[11px] font-extrabold ${deltaClass(metric.deltaTone)}`}>{metric.delta}</span>
         </p>
       </div>
     </Card>

@@ -9,7 +9,7 @@ export type ReportMetric = {
   delta: string;
   deltaTone: 'danger' | 'success' | 'neutral';
   tone: ReportTone;
-  iconKey: 'alert' | 'retrip' | 'switch' | 'culture' | 'document' | 'clock';
+  iconKey: 'alert' | 'retrip' | 'switch' | 'culture' | 'document' | 'success';
 };
 
 export type ReportStatusItem = {

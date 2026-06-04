@@ -1,32 +1,20 @@
 import { useQuery } from '@tanstack/react-query';
-import {
-  Building2,
-  CalendarDays,
-  Check,
-  ChevronDown,
-  ChevronLeft,
-  ChevronRight,
-  ClipboardList,
-  Clock3,
-  Code2,
-  Crown,
-  EllipsisVertical,
-  Eye,
-  FileDown,
-  HardHat,
-  Headphones,
-  Info,
-  KeyRound,
-  LockKeyhole,
-  MoreHorizontal,
-  ScrollText,
-  ShieldCheck,
-  UserPlus,
-  UserRound,
-  UsersRound,
-  type LucideIcon,
-} from 'lucide-react';
-import securityStateIconUrl from '../../../asset/image-Photoroom.png';
+import usersIconUrl from '../../../asset/image-Photoroom (23).png';
+import roleIconUrl from '../../../asset/image-Photoroom (24).png';
+import permissionIconUrl from '../../../asset/image-Photoroom (25).png';
+import auditIconUrl from '../../../asset/image-Photoroom (94).png';
+import securityStateIconUrl from '../../../asset/image-Photoroom (90).png';
+import apiIconUrl from '../../../asset/image-Photoroom (91).png';
+import crownIconUrl from '../../../asset/image-Photoroom (29).png';
+import buildingIconUrl from '../../../asset/image-Photoroom (30).png';
+import operatorIconUrl from '../../../asset/image-Photoroom (31).png';
+import fieldIconUrl from '../../../asset/image-Photoroom (74).png';
+import viewerIconUrl from '../../../asset/image-Photoroom (89).png';
+import timeoutIconUrl from '../../../asset/image-Photoroom (92).png';
+import mfaIconUrl from '../../../asset/image-Photoroom (93).png';
+import managerAvatarIconUrl from '../../../asset/image-Photoroom (32).png';
+import calendarIconUrl from '../../../asset/image-Photoroom (40).png';
+import exportIconUrl from '../../../asset/image-Photoroom (16).png';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
 import { getAdminSettingsDashboard } from '../../services/adminApi';
@@ -41,29 +29,30 @@ import {
   type AdminSummaryMetric,
 } from '../../types/admin';
 
-const summaryIconMap: Record<Exclude<AdminSummaryMetric['icon'], 'securityAsset'>, LucideIcon> = {
-  users: UsersRound,
-  role: UserRound,
-  permission: LockKeyhole,
-  audit: ScrollText,
-  api: Code2,
+const summaryIconMap: Record<AdminSummaryMetric['icon'], string> = {
+  users: usersIconUrl,
+  role: roleIconUrl,
+  permission: permissionIconUrl,
+  audit: auditIconUrl,
+  securityAsset: securityStateIconUrl,
+  api: apiIconUrl,
 };
 
-const roleIconMap: Record<AdminRole['icon'], LucideIcon> = {
-  crown: Crown,
-  building: Building2,
-  operator: Headphones,
-  field: HardHat,
-  viewer: Eye,
+const roleIconMap: Record<AdminRole['icon'], string> = {
+  crown: crownIconUrl,
+  building: buildingIconUrl,
+  operator: operatorIconUrl,
+  field: fieldIconUrl,
+  viewer: viewerIconUrl,
 };
 
-const securityIconMap: Record<AdminSecurityControl['icon'], LucideIcon> = {
-  rls: ShieldCheck,
-  api: Code2,
-  timeout: Clock3,
-  mfa: LockKeyhole,
-  retention: ClipboardList,
-  password: KeyRound,
+const securityIconMap: Record<AdminSecurityControl['icon'], string> = {
+  rls: securityStateIconUrl,
+  api: apiIconUrl,
+  timeout: timeoutIconUrl,
+  mfa: mfaIconUrl,
+  retention: auditIconUrl,
+  password: permissionIconUrl,
 };
 
 const summaryToneClasses: Record<AdminMetricTone, { icon: string; value: string }> = {
@@ -132,11 +121,25 @@ const managerStatusLabels: Record<AdminManagerStatus, string> = {
   inactive: '비활성',
 };
 
+function ImageIcon({ className, src }: { className: string; src: string }) {
+  return <img alt="" aria-hidden="true" className={className} src={src} />;
+}
+
+function TextIcon({ children, className }: { children: string; className?: string }) {
+  return (
+    <span aria-hidden="true" className={className}>
+      {children}
+    </span>
+  );
+}
+
 function PanelTitle({ title }: { title: string }) {
   return (
     <div className="flex items-center gap-2">
-      <h2 className="whitespace-nowrap text-[18px] font-black text-slate-950">{title}</h2>
-      <Info aria-hidden="true" className="text-slate-400" size={17} />
+      <h2 className="font-display whitespace-nowrap text-[18px] font-extrabold text-slate-950">{title}</h2>
+      <TextIcon className="grid h-[17px] w-[17px] place-items-center rounded-full border border-slate-300 text-[11px] font-black leading-none text-slate-400">
+        i
+      </TextIcon>
     </div>
   );
 }
@@ -144,35 +147,24 @@ function PanelTitle({ title }: { title: string }) {
 function SummaryMetricCard({ metric }: { metric: AdminSummaryMetric }) {
   const tone = summaryToneClasses[metric.tone];
   const isLongValue = metric.value.length > 4;
+  const iconSrc = summaryIconMap[metric.icon];
 
   return (
     <Card className="h-[116px] rounded-lg p-4">
       <div className="flex h-full items-center gap-4">
         <div className={`relative grid h-14 w-14 shrink-0 place-items-center rounded-lg ${tone.icon}`}>
-          {metric.icon === 'securityAsset' ? (
-            <>
-              <img alt="" className="absolute inset-0 h-14 w-14 object-contain opacity-80" src={securityStateIconUrl} />
-              <ShieldCheck aria-hidden="true" className="relative text-emerald-600" size={34} strokeWidth={2.4} />
-            </>
-          ) : null}
-          {metric.icon !== 'securityAsset' ? (
-            (() => {
-              const Icon = summaryIconMap[metric.icon];
-
-              return <Icon aria-hidden="true" size={35} strokeWidth={2.4} />;
-            })()
-          ) : null}
+          <ImageIcon className="h-12 w-12 object-contain drop-shadow-sm" src={iconSrc} />
         </div>
         <div className="min-w-0">
-          <p className="text-sm font-black text-slate-700">{metric.label}</p>
-          <p className={`${tone.value} mt-1 whitespace-nowrap font-black ${isLongValue ? 'text-[24px]' : 'text-[30px]'}`}>
+          <p className="font-display text-sm font-extrabold text-slate-700">{metric.label}</p>
+          <p className={`${tone.value} font-number mt-1 whitespace-nowrap font-extrabold ${isLongValue ? 'text-[23px]' : 'text-[30px]'}`}>
             {metric.value}
-            {metric.unit ? <span className="ml-1 text-base font-black text-slate-700">{metric.unit}</span> : null}
+            {metric.unit ? <span className="font-display ml-1 text-base font-extrabold text-slate-700">{metric.unit}</span> : null}
           </p>
-          <p className="mt-1 truncate text-xs font-bold text-slate-500">
+          <p className="font-control mt-1 truncate text-xs font-bold text-slate-500">
             {metric.supportingText}
             {metric.deltaText ? (
-              <span className={`ml-3 font-black ${deltaToneClasses[metric.deltaTone ?? 'neutral']}`}>{metric.deltaText}</span>
+              <span className={`font-number ml-3 font-extrabold ${deltaToneClasses[metric.deltaTone ?? 'neutral']}`}>{metric.deltaText}</span>
             ) : null}
           </p>
         </div>
@@ -182,29 +174,29 @@ function SummaryMetricCard({ metric }: { metric: AdminSummaryMetric }) {
 }
 
 function RoleCard({ role }: { role: AdminRole }) {
-  const Icon = roleIconMap[role.icon];
+  const iconSrc = roleIconMap[role.icon];
   const tone = roleToneClasses[role.tone];
 
   return (
     <div className="flex min-h-[268px] flex-col rounded-lg border border-slate-200 bg-white p-4">
       <div className="flex items-start gap-3">
         <div className={`grid h-11 w-11 shrink-0 place-items-center rounded-full ${tone.icon}`}>
-          <Icon aria-hidden="true" size={24} strokeWidth={2.3} />
+          <ImageIcon className="h-9 w-9 object-contain drop-shadow-sm" src={iconSrc} />
         </div>
         <div className="min-w-0">
-          <p className="text-[13px] font-black leading-5 text-slate-800">{role.name}</p>
-          <span className={`mt-2 inline-flex rounded-full px-3 py-1 text-sm font-black ${tone.badge}`}>{role.countLabel}</span>
+          <p className="font-display text-[13px] font-extrabold leading-5 text-slate-800">{role.name}</p>
+          <span className={`font-number mt-2 inline-flex rounded-full px-3 py-1 text-sm font-extrabold ${tone.badge}`}>{role.countLabel}</span>
         </div>
       </div>
 
-      <p className="mt-4 min-h-[46px] border-b border-slate-200 pb-3 text-sm font-bold leading-6 text-slate-600">
+      <p className="font-control mt-4 min-h-[46px] border-b border-slate-200 pb-3 text-sm font-semibold leading-6 text-slate-600">
         {role.description}
       </p>
 
       <ul className="mt-3 space-y-2">
         {role.permissions.map((permission) => (
-          <li className="flex items-center gap-2 text-sm font-bold text-slate-600" key={permission}>
-            <Check aria-hidden="true" className="shrink-0 text-emerald-600" size={14} strokeWidth={3} />
+          <li className="font-control flex items-center gap-2 text-sm font-semibold text-slate-600" key={permission}>
+            <TextIcon className="font-number shrink-0 text-[14px] font-black leading-none text-emerald-600">✓</TextIcon>
             <span>{permission}</span>
           </li>
         ))}
@@ -229,7 +221,7 @@ function RolePanel({ roles }: { roles: AdminRole[] }) {
 function ManagerStatusBadge({ status }: { status: AdminManagerStatus }) {
   const statusClass = status === 'active' ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-500';
 
-  return <span className={`inline-flex rounded-full px-3 py-1 text-xs font-black ${statusClass}`}>{managerStatusLabels[status]}</span>;
+  return <span className={`font-display inline-flex rounded-full px-3 py-1 text-xs font-extrabold ${statusClass}`}>{managerStatusLabels[status]}</span>;
 }
 
 function ManagersPanel({ managers }: { managers: AdminManager[] }) {
@@ -242,21 +234,21 @@ function ManagersPanel({ managers }: { managers: AdminManager[] }) {
             권한 수정
           </Button>
           <Button className="h-9 px-4 text-sm" variant="primary">
-            <UserPlus aria-hidden="true" size={17} />
+            <ImageIcon className="h-5 w-5 object-contain brightness-0 invert" src={usersIconUrl} />
             새 관리자 초대
           </Button>
           <button
             aria-label="관리자 목록 추가 작업"
-            className="grid h-9 w-10 place-items-center rounded-lg border border-slate-200 bg-white text-slate-600"
+            className="font-number grid h-9 w-10 place-items-center rounded-lg border border-slate-200 bg-white text-lg font-extrabold leading-none text-slate-600"
             type="button"
           >
-            <MoreHorizontal aria-hidden="true" size={20} />
+            ···
           </button>
         </div>
       </div>
 
       <div className="min-h-0 flex-1 overflow-hidden px-3">
-        <table className="w-full table-fixed border-separate border-spacing-0 text-left text-sm">
+        <table className="font-table w-full table-fixed border-separate border-spacing-0 text-left text-sm">
           <thead>
             <tr className="h-10 text-xs font-black text-slate-600">
               <th className="w-[30%] border-b border-slate-200 px-3">이름</th>
@@ -273,10 +265,10 @@ function ManagersPanel({ managers }: { managers: AdminManager[] }) {
                 <td className="border-b border-slate-100 px-3">
                   <div className="flex min-w-0 items-center gap-3">
                     <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-slate-200 text-slate-600">
-                      <UserRound aria-hidden="true" size={21} />
+                      <ImageIcon className="h-8 w-8 object-contain" src={managerAvatarIconUrl} />
                     </span>
                     <div className="min-w-0 leading-tight">
-                      <p className="truncate text-sm font-black text-slate-800">{manager.name}</p>
+                      <p className="font-display truncate text-sm font-extrabold text-slate-800">{manager.name}</p>
                       <p className="truncate text-xs font-bold text-slate-500">{manager.email}</p>
                     </div>
                   </div>
@@ -298,10 +290,10 @@ function ManagersPanel({ managers }: { managers: AdminManager[] }) {
                 <td className="border-b border-slate-100 px-1 text-center">
                   <button
                     aria-label={`${manager.name} 추가 작업`}
-                    className="grid h-8 w-8 place-items-center rounded-lg text-slate-700 hover:bg-slate-100"
+                    className="font-number grid h-8 w-8 place-items-center rounded-lg text-lg font-extrabold leading-none text-slate-700 hover:bg-slate-100"
                     type="button"
                   >
-                    <EllipsisVertical aria-hidden="true" size={18} />
+                    ⋮
                   </button>
                 </td>
               </tr>
@@ -315,10 +307,10 @@ function ManagersPanel({ managers }: { managers: AdminManager[] }) {
         <div className="flex items-center gap-2">
           <button
             aria-label="이전 관리자 페이지"
-            className="grid h-8 w-8 place-items-center rounded-lg border border-slate-200 text-slate-300"
+            className="font-number grid h-8 w-8 place-items-center rounded-lg border border-slate-200 text-lg font-extrabold text-slate-300"
             type="button"
           >
-            <ChevronLeft aria-hidden="true" size={17} />
+            ‹
           </button>
           {[1, 2, 3, 4].map((page) => (
             <button
@@ -333,10 +325,10 @@ function ManagersPanel({ managers }: { managers: AdminManager[] }) {
           ))}
           <button
             aria-label="다음 관리자 페이지"
-            className="grid h-8 w-8 place-items-center rounded-lg border border-slate-200 text-slate-700"
+            className="font-number grid h-8 w-8 place-items-center rounded-lg border border-slate-200 text-lg font-extrabold text-slate-700"
             type="button"
           >
-            <ChevronRight aria-hidden="true" size={17} />
+            ›
           </button>
         </div>
       </div>
@@ -345,24 +337,24 @@ function ManagersPanel({ managers }: { managers: AdminManager[] }) {
 }
 
 function SecurityControlRow({ control }: { control: AdminSecurityControl }) {
-  const Icon = securityIconMap[control.icon];
+  const iconSrc = securityIconMap[control.icon];
   const isSelect = control.controlType === 'select';
 
   return (
     <div className="flex min-h-[48px] items-center gap-3 border-b border-slate-100 px-2 py-1.5 last:border-b-0">
       <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg text-slate-600">
-        <Icon aria-hidden="true" size={22} />
+        <ImageIcon className="h-7 w-7 object-contain drop-shadow-sm" src={iconSrc} />
       </div>
       <div className="min-w-0 flex-1">
-        <p className="truncate text-sm font-black text-slate-800">{control.label}</p>
-        <p className="truncate text-xs font-bold text-slate-500">{control.description}</p>
+        <p className="font-display truncate text-sm font-extrabold text-slate-800">{control.label}</p>
+        <p className="font-control truncate text-xs font-bold text-slate-500">{control.description}</p>
       </div>
       <button
-        className={`inline-flex h-7 shrink-0 items-center gap-2 rounded-lg px-3 text-xs font-black ${securityValueClasses[control.valueTone]}`}
+        className={`font-control inline-flex h-7 shrink-0 items-center gap-2 rounded-lg px-3 text-xs font-extrabold ${securityValueClasses[control.valueTone]}`}
         type="button"
       >
         {control.value}
-        {isSelect ? <ChevronDown aria-hidden="true" size={15} /> : null}
+        {isSelect ? <TextIcon className="font-number text-sm font-black leading-none">⌄</TextIcon> : null}
       </button>
     </div>
   );
@@ -378,11 +370,11 @@ function SecurityPanel({ controls }: { controls: AdminSecurityControl[] }) {
         ))}
       </div>
       <button
-        className="mt-1 flex h-9 shrink-0 items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white text-sm font-black text-blue-600"
+        className="font-display mt-1 flex h-9 shrink-0 items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white text-sm font-extrabold text-blue-600"
         type="button"
       >
         보안 설정 관리
-        <ChevronRight aria-hidden="true" size={17} />
+        <TextIcon className="font-number text-lg font-extrabold leading-none">›</TextIcon>
       </button>
     </Card>
   );
@@ -395,31 +387,31 @@ function AuditPanel({ logs }: { logs: AdminAuditLog[] }) {
         <PanelTitle title="Audit Log / 운영 이력" />
         <div className="flex items-center gap-2">
           <button
-            className="inline-flex h-9 whitespace-nowrap rounded-lg border border-slate-200 bg-white px-3 text-xs font-black text-slate-700"
+            className="font-control inline-flex h-9 items-center gap-2 whitespace-nowrap rounded-lg border border-slate-200 bg-white px-3 text-xs font-extrabold text-slate-700"
             type="button"
           >
             전체 작업
-            <ChevronDown aria-hidden="true" size={15} />
+            <TextIcon className="font-number text-sm font-black leading-none">⌄</TextIcon>
           </button>
           <button
-            className="hidden h-9 items-center gap-2 whitespace-nowrap rounded-lg border border-slate-200 bg-white px-3 text-xs font-black text-slate-700 2xl:inline-flex"
+            className="font-number hidden h-9 items-center gap-2 whitespace-nowrap rounded-lg border border-slate-200 bg-white px-3 text-xs font-extrabold text-slate-700 2xl:inline-flex"
             type="button"
           >
             2025.05.19
-            <CalendarDays aria-hidden="true" size={15} />
+            <ImageIcon className="h-4 w-4 object-contain" src={calendarIconUrl} />
           </button>
           <button
-            className="inline-flex h-9 items-center gap-2 whitespace-nowrap rounded-lg border border-blue-100 bg-blue-50 px-3 text-xs font-black text-blue-600"
+            className="font-display inline-flex h-9 items-center gap-2 whitespace-nowrap rounded-lg border border-blue-100 bg-blue-50 px-3 text-xs font-extrabold text-blue-600"
             type="button"
           >
-            <FileDown aria-hidden="true" size={16} />
+            <ImageIcon className="h-5 w-5 object-contain" src={exportIconUrl} />
             로그 내보내기
           </button>
         </div>
       </div>
 
       <div className="min-h-0 flex-1 overflow-hidden px-3">
-        <table className="w-full table-fixed border-separate border-spacing-0 text-left text-sm">
+        <table className="font-table w-full table-fixed border-separate border-spacing-0 text-left text-sm">
           <thead>
             <tr className="h-9 text-xs font-black text-slate-600">
               <th className="w-[12%] border-b border-slate-200 px-2">시간</th>
@@ -450,10 +442,10 @@ function AuditPanel({ logs }: { logs: AdminAuditLog[] }) {
         <div className="flex items-center gap-2">
           <button
             aria-label="이전 감사 로그 페이지"
-            className="grid h-8 w-8 place-items-center rounded-lg border border-slate-200 text-slate-300"
+            className="font-number grid h-8 w-8 place-items-center rounded-lg border border-slate-200 text-lg font-extrabold text-slate-300"
             type="button"
           >
-            <ChevronLeft aria-hidden="true" size={17} />
+            ‹
           </button>
           {[1, 2, 3, 4, 5].map((page) => (
             <button
@@ -468,10 +460,10 @@ function AuditPanel({ logs }: { logs: AdminAuditLog[] }) {
           ))}
           <button
             aria-label="다음 감사 로그 페이지"
-            className="grid h-8 w-8 place-items-center rounded-lg border border-slate-200 text-slate-700"
+            className="font-number grid h-8 w-8 place-items-center rounded-lg border border-slate-200 text-lg font-extrabold text-slate-700"
             type="button"
           >
-            <ChevronRight aria-hidden="true" size={17} />
+            ›
           </button>
         </div>
       </div>

@@ -537,7 +537,7 @@ export function AreaDetailPage() {
   }
 
   return (
-    <div className="w-full max-w-none space-y-3 pb-3 xl:grid xl:h-full xl:min-h-[760px] xl:grid-rows-[40px_108px_minmax(0,1.45fr)_minmax(0,1.35fr)_minmax(0,0.95fr)] xl:gap-3 xl:space-y-0 xl:overflow-hidden xl:pb-0">
+    <div className="w-full max-w-none space-y-3 pb-3 xl:grid xl:h-full xl:min-h-[760px] xl:grid-rows-[40px_124px_minmax(0,1.22fr)_minmax(0,1.12fr)_minmax(0,0.82fr)] xl:gap-4 xl:space-y-0 xl:overflow-hidden xl:pb-0">
       <div className="flex h-10 items-center justify-between gap-3 xl:h-full">
         <button
           className="flex h-full min-w-0 max-w-[560px] flex-1 items-center justify-between rounded-xl border border-slate-200 bg-white px-5 text-base font-black text-slate-900 shadow-sm shadow-slate-200/40"

@@ -74,7 +74,7 @@ export const reportsDashboard: ReportsDashboard = {
       delta: '▲ 0%p',
       deltaTone: 'success',
       tone: 'green',
-      iconKey: 'clock',
+      iconKey: 'success',
     },
   ],
   templates: [
