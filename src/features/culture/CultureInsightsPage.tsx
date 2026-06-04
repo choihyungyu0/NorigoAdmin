@@ -1,25 +1,25 @@
 import { useQuery } from '@tanstack/react-query';
 import { type ReactNode } from 'react';
 import {
-  Armchair,
-  Banknote,
-  Bell,
-  Camera,
   CheckCircle2,
   ChevronRight,
-  CircleAlert,
-  Ellipsis,
-  Globe,
   Info,
-  Landmark,
-  MapPin,
   Radio,
-  ScanLine,
   ServerCog,
-  Star,
-  type LucideIcon,
 } from 'lucide-react';
 import alertIcon from '../../../asset/image-removebg-preview (5).png';
+import cultureScanIcon from '../../../asset/image-Photoroom (81).png';
+import confusionBellIcon from '../../../asset/image-Photoroom (82).png';
+import growthAreaIcon from '../../../asset/image-Photoroom (83).png';
+import supportedLanguageIcon from '../../../asset/image-Photoroom (84).png';
+import guideNeededIcon from '../../../asset/image-Photoroom (85).png';
+import improvementPriorityIcon from '../../../asset/image-Photoroom (86).png';
+import marketCashIcon from '../../../asset/image-Photoroom (87).png';
+import subwaySeatIcon from '../../../asset/image-Photoroom (88).png';
+import restaurantBellIcon from '../../../asset/image-Photoroom (19).png';
+import hanokCameraIcon from '../../../asset/image-Photoroom (20).png';
+import templeMannersIcon from '../../../asset/image-Photoroom (21).png';
+import otherObjectIcon from '../../../asset/image-Photoroom (22).png';
 import { getCultureInsightsSnapshot, getCultureInsightsSnapshotPreview } from '../../services/cultureInsightsApi';
 import {
   type CultureConfusionSignal,
@@ -37,7 +37,6 @@ import { CultureHotspotLeafletMap } from './CultureHotspotLeafletMap';
 
 type ToneClassSet = {
   border: string;
-  icon: string;
   value: string;
 };
 
@@ -48,39 +47,31 @@ type LanguageDistributionItem = {
   percent: number;
 };
 
-const metricIconById: Record<CultureMetricId, LucideIcon> = {
-  todayScan: ScanLine,
-  foreignerConfusion: Bell,
-  growthAreas: MapPin,
-  supportedLanguages: Globe,
-  guideNeededPlaces: CircleAlert,
-  improvementPriority: Star,
+const metricIconById: Record<CultureMetricId, string> = {
+  todayScan: cultureScanIcon,
+  foreignerConfusion: confusionBellIcon,
+  growthAreas: growthAreaIcon,
+  supportedLanguages: supportedLanguageIcon,
+  guideNeededPlaces: guideNeededIcon,
+  improvementPriority: improvementPriorityIcon,
 };
 
 const metricToneClasses: Record<CultureMetricTone, ToneClassSet> = {
-  blue: { border: 'border-blue-200', icon: 'text-blue-600', value: 'text-blue-600' },
-  emerald: { border: 'border-emerald-200', icon: 'text-emerald-600', value: 'text-emerald-600' },
-  orange: { border: 'border-orange-200', icon: 'text-orange-500', value: 'text-orange-500' },
-  purple: { border: 'border-purple-200', icon: 'text-purple-600', value: 'text-purple-600' },
-  red: { border: 'border-red-200', icon: 'text-red-500', value: 'text-red-500' },
-  violet: { border: 'border-violet-200', icon: 'text-violet-600', value: 'text-violet-600' },
+  blue: { border: 'border-blue-200', value: 'text-blue-600' },
+  emerald: { border: 'border-emerald-200', value: 'text-emerald-600' },
+  orange: { border: 'border-orange-200', value: 'text-orange-500' },
+  purple: { border: 'border-purple-200', value: 'text-purple-600' },
+  red: { border: 'border-red-200', value: 'text-red-500' },
+  violet: { border: 'border-violet-200', value: 'text-violet-600' },
 };
 
-const objectIconById: Record<CultureObjectIcon, LucideIcon> = {
-  bell: Bell,
-  camera: Camera,
-  cash: Banknote,
-  etc: Ellipsis,
-  seat: Armchair,
-  temple: Landmark,
-};
-
-const objectToneClasses: Record<CultureScannedObject['tone'], string> = {
-  blue: 'bg-blue-50 text-blue-600',
-  emerald: 'bg-emerald-50 text-emerald-600',
-  orange: 'bg-orange-50 text-orange-500',
-  slate: 'bg-slate-100 text-slate-700',
-  violet: 'bg-violet-50 text-violet-600',
+const objectIconById: Record<CultureObjectIcon, string> = {
+  bell: restaurantBellIcon,
+  camera: hanokCameraIcon,
+  cash: marketCashIcon,
+  etc: otherObjectIcon,
+  seat: subwaySeatIcon,
+  temple: templeMannersIcon,
 };
 
 const needLevelClasses: Record<CultureGuideImprovement['needLevel'], string> = {
@@ -186,13 +177,13 @@ function ControlStatusStrip({
 }
 
 function MetricTile({ metric }: { metric: CultureMetric }) {
-  const Icon = metricIconById[metric.id];
+  const iconSrc = metricIconById[metric.id];
   const tone = metricToneClasses[metric.tone];
 
   return (
     <article className={cx('flex h-full items-center gap-4 rounded-lg border bg-white px-5 py-3 shadow-sm', tone.border)}>
-      <div className={cx('grid h-14 w-14 shrink-0 place-items-center rounded-lg bg-white', tone.icon)}>
-        <Icon aria-hidden="true" strokeWidth={2.4} size={46} />
+      <div className="grid h-16 w-16 shrink-0 place-items-center">
+        <img alt="" aria-hidden="true" className="h-16 w-16 object-contain drop-shadow-sm" src={iconSrc} />
       </div>
       <div className="min-w-0 flex-1 text-center">
         <p className="truncate text-sm font-black text-slate-900">{metric.label}</p>
@@ -268,12 +259,12 @@ function ScannedObjectsCard({ objects }: { objects: CultureScannedObject[] }) {
       <CompactHeader title="자주 스캔된 객체" />
       <div className="grid h-[calc(100%-32px)] grid-cols-2 grid-rows-3 gap-2">
         {objects.map((object) => {
-          const Icon = objectIconById[object.icon];
+          const iconSrc = objectIconById[object.icon];
 
           return (
             <div className="flex min-h-0 items-center gap-3 rounded-lg border border-slate-200 px-3 py-2" key={object.id}>
-              <span className={cx('grid h-9 w-9 shrink-0 place-items-center rounded-lg', objectToneClasses[object.tone])}>
-                <Icon aria-hidden="true" size={24} />
+              <span className="grid h-10 w-10 shrink-0 place-items-center">
+                <img alt="" aria-hidden="true" className="h-10 w-10 object-contain drop-shadow-sm" src={iconSrc} />
               </span>
               <div className="min-w-0">
                 <p className="truncate text-xs font-black text-slate-900">{object.label}</p>
