@@ -31,7 +31,7 @@ export function AppLayout() {
         <Sidebar />
         <div className="flex min-w-0 flex-1 flex-col">
           <Topbar pageTitle={resolvePageTitle(location.pathname)} />
-          <main className="h-[calc(100vh-4rem)] min-w-0 flex-1 overflow-auto px-5 py-3 lg:px-7 2xl:px-7 2xl:py-3.5">
+          <main className="h-[calc(100vh-76px)] min-w-0 flex-1 overflow-auto px-6 py-4 lg:px-8">
             <Outlet />
           </main>
         </div>
