@@ -5,7 +5,6 @@ import {
   ArrowUp,
   Ban,
   BookOpen,
-  CalendarCheck,
   CalendarDays,
   CalendarPlus,
   Check,
@@ -14,8 +13,6 @@ import {
   Coffee,
   Info,
   Landmark,
-  LineChart,
-  MapPin,
   SlidersHorizontal,
   Star,
   TrendingUp,
@@ -35,6 +32,9 @@ import alertIcon from '../../../asset/image-removebg-preview (5).png';
 import rerouteIcon from '../../../asset/image-removebg-preview (6).png';
 import switchIcon from '../../../asset/image-removebg-preview (7).png';
 import crowdIcon from '../../../asset/image-removebg-preview (11).png';
+import calendarIcon from '../../../asset/image-Photoroom (66).png';
+import pinIcon from '../../../asset/image-Photoroom (67).png';
+import trendIcon from '../../../asset/image-Photoroom (68).png';
 import { getReTripMonitorSnapshot } from '../../services/retripApi';
 import {
   type ReTripControlAction,
@@ -84,16 +84,13 @@ const crowdClasses: Record<ReTripCrowdLevel, string> = {
   Low: 'bg-emerald-50 text-emerald-600',
 };
 
-const kpiAssetIcons: Partial<Record<ReTripKpi['icon'], string>> = {
+const kpiAssetIcons: Record<ReTripKpi['icon'], string> = {
   reroute: rerouteIcon,
   switch: switchIcon,
+  calendar: calendarIcon,
+  pin: pinIcon,
+  trend: trendIcon,
   alert: alertIcon,
-};
-
-const kpiLucideIcons = {
-  calendar: CalendarCheck,
-  pin: MapPin,
-  trend: LineChart,
 };
 
 const flowTargetIcons = {
@@ -157,7 +154,6 @@ function PanelHeader({ title, action, dense = false }: { title: string; action?:
 function KpiCard({ metric }: { metric: ReTripKpi }) {
   const tone = kpiToneClasses[metric.tone];
   const assetIcon = kpiAssetIcons[metric.icon];
-  const LucideIcon = metric.icon in kpiLucideIcons ? kpiLucideIcons[metric.icon as keyof typeof kpiLucideIcons] : null;
 
   return (
     <section className="flex h-[156px] min-w-0 items-center rounded-[14px] border border-slate-200 bg-white px-4 shadow-sm shadow-slate-200/40">
@@ -168,11 +164,7 @@ function KpiCard({ metric }: { metric: ReTripKpi }) {
           tone.text,
         )}
       >
-        {assetIcon ? (
-          <img alt="" className="h-11 w-11 object-contain" src={assetIcon} />
-        ) : LucideIcon ? (
-          <LucideIcon aria-hidden="true" size={34} strokeWidth={2.2} />
-        ) : null}
+        <img alt="" className="h-12 w-12 object-contain" src={assetIcon} />
         </div>
         <div className="min-w-0">
           <p className="truncate text-[13px] font-black text-slate-800">{metric.label}</p>
