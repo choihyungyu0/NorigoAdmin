@@ -4,11 +4,11 @@ import { Topbar } from './Topbar';
 
 const pageTitles: Record<string, string> = {
   '/': 'Overview',
-  '/live-map': 'Live Map',
+  '/live-map': 'Live Tourism Control',
   '/re-trip': 'Re-Trip Monitor',
   '/culture': 'Culture Insights',
   '/discover': 'Discover Performance',
-  '/notices': 'Visitor Notices',
+  '/notices': 'Visitor Notice Manager',
   '/data-quality': 'Data Quality',
   '/reports': 'Reports',
   '/settings': 'Admin Settings',
@@ -26,12 +26,12 @@ export function AppLayout() {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-950">
+    <div className="min-h-screen bg-[#f6f8fb] text-slate-950">
       <div className="flex min-h-screen">
         <Sidebar />
         <div className="flex min-w-0 flex-1 flex-col">
           <Topbar pageTitle={resolvePageTitle(location.pathname)} />
-          <main className="min-w-0 flex-1 px-6 py-5 lg:px-8">
+          <main className="min-w-0 flex-1 overflow-auto px-5 py-2.5 lg:px-7">
             <Outlet />
           </main>
         </div>

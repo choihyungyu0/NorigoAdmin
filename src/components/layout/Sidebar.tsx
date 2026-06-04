@@ -1,44 +1,51 @@
 import {
   BarChart3,
   BellDot,
-  Compass,
+  Database,
+  FileText,
   Gauge,
-  Landmark,
-  LayoutDashboard,
-  Map,
-  Route,
+  Grid2X2,
+  Home,
+  MapPin,
+  PanelLeftClose,
+  RefreshCcw,
   Settings,
-  ShieldCheck,
 } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 
 const navItems = [
-  { label: 'Overview', path: '/', icon: LayoutDashboard },
-  { label: 'Live Map', path: '/live-map', icon: Map },
-  { label: 'Area Detail', path: '/areas/myeong-dong', icon: Landmark },
-  { label: 'Re-Trip Monitor', path: '/re-trip', icon: Route },
-  { label: 'Culture Insights', path: '/culture', icon: Compass },
+  { label: 'Overview', path: '/', icon: Home },
+  { label: 'Live Map', path: '/live-map', icon: MapPin },
+  { label: 'Area Detail', path: '/areas/bukchon', icon: Grid2X2 },
+  { label: 'Re-Trip Monitor', path: '/re-trip', icon: RefreshCcw },
+  { label: 'Culture Insights', path: '/culture', icon: Gauge },
   { label: 'Discover Performance', path: '/discover', icon: BarChart3 },
   { label: 'Notices', path: '/notices', icon: BellDot },
-  { label: 'Data Quality', path: '/data-quality', icon: Gauge },
-  { label: 'Reports', path: '/reports', icon: ShieldCheck },
+  { label: 'Data Quality', path: '/data-quality', icon: Database },
+  { label: 'Reports', path: '/reports', icon: FileText },
   { label: 'Admin Settings', path: '/settings', icon: Settings },
 ];
 
+function LogoMark() {
+  return (
+    <span className="relative block h-11 w-11 shrink-0">
+      <span className="absolute left-1 top-3 h-6 w-3 rounded-sm bg-blue-600" />
+      <span className="absolute left-3.5 top-1 h-9 w-3 rounded-sm bg-cyan-500" />
+      <span className="absolute left-6 top-2 h-8 w-3 rounded-sm bg-amber-400" />
+      <span className="absolute left-3.5 top-8 h-3 w-3 rounded-sm bg-blue-500" />
+    </span>
+  );
+}
+
 export function Sidebar() {
   return (
-    <aside className="sticky top-0 hidden h-screen w-72 shrink-0 border-r border-slate-200 bg-white px-4 py-5 lg:block">
-      <div className="mb-6 flex items-center gap-3 px-2">
-        <div className="grid h-10 w-10 place-items-center rounded-2xl bg-blue-600 text-sm font-black text-white">
-          NG
-        </div>
-        <div>
-          <p className="text-sm font-black text-slate-950">NoriGo Admin</p>
-          <p className="text-xs font-medium text-slate-500">Seoul Tourism Ops</p>
-        </div>
+    <aside className="sticky top-0 hidden h-screen w-[228px] shrink-0 border-r border-slate-200 bg-white px-3 py-5 lg:flex lg:flex-col">
+      <div className="mb-7 flex items-center gap-3 px-4">
+        <LogoMark />
+        <span className="text-3xl font-black tracking-normal text-blue-600">NoriGo</span>
       </div>
 
-      <nav className="space-y-1" aria-label="Dashboard navigation">
+      <nav className="space-y-2" aria-label="Dashboard navigation">
         {navItems.map((item) => {
           const Icon = item.icon;
 
@@ -46,22 +53,30 @@ export function Sidebar() {
             <NavLink
               className={({ isActive }) =>
                 [
-                  'flex h-10 items-center gap-3 rounded-xl px-3 text-sm font-semibold transition',
+                  'flex h-12 items-center gap-3 rounded-lg px-3 text-[13px] font-bold transition',
                   isActive
-                    ? 'bg-blue-50 text-blue-700'
-                    : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950',
+                    ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/30'
+                    : 'text-slate-700 hover:bg-slate-100 hover:text-slate-950',
                 ].join(' ')
               }
               end={item.path === '/'}
               key={item.path}
               to={item.path}
             >
-              <Icon aria-hidden="true" size={18} />
+              <Icon aria-hidden="true" size={20} />
               <span className="truncate">{item.label}</span>
             </NavLink>
           );
         })}
       </nav>
+
+      <button
+        className="mt-auto flex h-12 items-center gap-4 rounded-lg border border-slate-200 bg-white px-4 text-sm font-bold text-slate-700"
+        type="button"
+      >
+        <PanelLeftClose aria-hidden="true" size={20} />
+        사이트맵 접기
+      </button>
     </aside>
   );
 }

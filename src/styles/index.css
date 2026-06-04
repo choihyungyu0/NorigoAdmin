@@ -1,3 +1,10 @@
+@import '@fontsource/pretendard/400.css';
+@import '@fontsource/pretendard/500.css';
+@import '@fontsource/pretendard/600.css';
+@import '@fontsource/pretendard/700.css';
+@import '@fontsource/pretendard/800.css';
+@import '@fontsource/pretendard/900.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,8 +13,14 @@
   :root {
     color-scheme: light;
     font-family:
+      "Pretendard Variable", Pretendard, "SUIT Variable", SUIT, "Noto Sans KR",
       Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
       sans-serif;
+    font-feature-settings: "tnum" 1;
+    font-synthesis: none;
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   * {
@@ -18,11 +31,272 @@
     min-width: 320px;
     min-height: 100vh;
     margin: 0;
-    background: #f1f5f9;
+    background: #f6f8fb;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   button,
-  input {
+  input,
+  select,
+  textarea {
     font: inherit;
   }
 }
+
+.live-map-marker-shell {
+    background: transparent;
+    border: 0;
+  }
+
+  .live-map-marker {
+    position: relative;
+    display: grid;
+    width: 24px;
+    height: 24px;
+    place-items: center;
+    border-radius: 999px;
+    background: #ffffff;
+    box-shadow: 0 8px 16px rgba(15, 23, 42, 0.18);
+  }
+
+  .live-map-marker::before {
+    position: absolute;
+    inset: 2px;
+    border: 3px solid currentColor;
+    border-radius: inherit;
+    content: "";
+  }
+
+  .live-map-marker > span {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: currentColor;
+  }
+
+  .live-map-marker > b {
+    position: relative;
+    z-index: 1;
+    font-size: 16px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .live-map-marker--veryHigh {
+    color: #dc2626;
+  }
+
+  .live-map-marker--high {
+    color: #f97316;
+  }
+
+  .live-map-marker--moderate {
+    color: #f59e0b;
+  }
+
+  .live-map-marker--low {
+    color: #16a34a;
+  }
+
+  .live-map-marker--noData {
+    color: #64748b;
+  }
+
+  .live-map-marker--noData::after {
+    position: absolute;
+    color: #64748b;
+    content: "×";
+    font-size: 16px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .live-map-marker--noData > span {
+    opacity: 0;
+  }
+
+  .live-map-marker--retrip,
+  .live-map-marker--culture {
+    width: 28px;
+    height: 28px;
+  }
+
+  .live-map-marker--retrip {
+    color: #8b5cf6;
+  }
+
+  .live-map-marker--culture {
+    color: #2563eb;
+  }
+
+  .live-map-marker--retrip::before,
+  .live-map-marker--culture::before {
+    inset: 3px;
+    border-width: 3px;
+  }
+
+  .live-map-marker--retrip > span,
+  .live-map-marker--culture > span {
+    width: 6px;
+    height: 6px;
+  }
+
+  .live-map-legend-dot {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border: 3px solid currentColor;
+    border-radius: 999px;
+    background: #ffffff;
+  }
+
+  .live-map-legend-dot--veryHigh {
+    color: #dc2626;
+  }
+
+  .live-map-legend-dot--high {
+    color: #f97316;
+  }
+
+  .live-map-legend-dot--moderate {
+    color: #f59e0b;
+  }
+
+  .live-map-legend-dot--low {
+    color: #16a34a;
+  }
+
+  .live-map-legend-dot--noData {
+    color: #64748b;
+  }
+
+  .live-map-legend-dot--retrip {
+    color: #8b5cf6;
+  }
+
+  .live-map-legend-dot--culture {
+    color: #2563eb;
+  }
+
+  .live-map-tooltip {
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(15, 23, 42, 0.14);
+    color: #0f172a;
+    font-family:
+      Pretendard, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .live-map-tooltip strong,
+  .live-map-tooltip span {
+    display: block;
+  }
+
+  .live-map-tooltip span {
+    margin-top: 2px;
+    color: #64748b;
+    font-size: 11px;
+  }
+
+  .leaflet-control-zoom {
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 8px !important;
+    overflow: hidden;
+  }
+
+  .leaflet-control-zoom a {
+    color: #0f172a !important;
+    font-weight: 900;
+  }
+
+  .culture-map-marker-shell {
+    background: transparent;
+    border: 0;
+  }
+
+  .culture-leaflet-map {
+    background-color: #edf2f7;
+    background-image:
+      linear-gradient(26deg, transparent 0 45%, rgba(148, 163, 184, 0.26) 45% 47%, transparent 47% 100%),
+      linear-gradient(118deg, transparent 0 52%, rgba(148, 163, 184, 0.22) 52% 54%, transparent 54% 100%),
+      linear-gradient(0deg, rgba(37, 99, 235, 0.08), rgba(37, 99, 235, 0.08)),
+      linear-gradient(90deg, rgba(203, 213, 225, 0.24) 1px, transparent 1px),
+      linear-gradient(0deg, rgba(203, 213, 225, 0.24) 1px, transparent 1px);
+    background-position:
+      -20px 30px,
+      22px -12px,
+      0 0,
+      0 0,
+      0 0;
+    background-size:
+      220px 160px,
+      260px 190px,
+      100% 100%,
+      84px 84px,
+      84px 84px;
+  }
+
+  .culture-map-marker {
+    position: relative;
+    display: grid;
+    width: 36px;
+    height: 36px;
+    place-items: center;
+    border: 4px solid #ffffff;
+    border-radius: 999px;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 900;
+    line-height: 1;
+    box-shadow:
+      0 0 0 9px rgba(239, 68, 68, 0.16),
+      0 12px 24px rgba(15, 23, 42, 0.18);
+  }
+
+  .culture-map-marker--red {
+    background: #ef4444;
+    box-shadow:
+      0 0 0 9px rgba(239, 68, 68, 0.2),
+      0 12px 24px rgba(15, 23, 42, 0.18);
+  }
+
+  .culture-map-marker--orange {
+    background: #f97316;
+    box-shadow:
+      0 0 0 9px rgba(249, 115, 22, 0.18),
+      0 12px 24px rgba(15, 23, 42, 0.18);
+  }
+
+  .culture-map-marker--blue {
+    background: #2563eb;
+    box-shadow:
+      0 0 0 9px rgba(37, 99, 235, 0.16),
+      0 12px 24px rgba(15, 23, 42, 0.18);
+  }
+
+  .culture-map-tooltip {
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(15, 23, 42, 0.14);
+    color: #0f172a;
+    font-family:
+      Pretendard, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .culture-map-tooltip strong,
+  .culture-map-tooltip span {
+    display: block;
+  }
+
+  .culture-map-tooltip span {
+    margin-top: 2px;
+    color: #64748b;
+    font-size: 11px;
+  }
