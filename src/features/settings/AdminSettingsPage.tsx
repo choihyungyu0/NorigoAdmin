@@ -55,41 +55,43 @@ const securityIconMap: Record<AdminSecurityControl['icon'], string> = {
   password: permissionIconUrl,
 };
 
+const whiteIconSurface = 'bg-white';
+
 const summaryToneClasses: Record<AdminMetricTone, { icon: string; value: string }> = {
-  blue: { icon: 'bg-blue-50 text-blue-600', value: 'text-blue-600' },
-  purple: { icon: 'bg-violet-50 text-violet-600', value: 'text-violet-600' },
-  orange: { icon: 'bg-orange-50 text-orange-500', value: 'text-red-500' },
-  green: { icon: 'bg-emerald-50 text-emerald-600', value: 'text-emerald-600' },
-  emerald: { icon: 'bg-emerald-50 text-emerald-600', value: 'text-emerald-600' },
+  blue: { icon: whiteIconSurface, value: 'text-blue-600' },
+  purple: { icon: whiteIconSurface, value: 'text-violet-600' },
+  orange: { icon: whiteIconSurface, value: 'text-red-500' },
+  green: { icon: whiteIconSurface, value: 'text-emerald-600' },
+  emerald: { icon: whiteIconSurface, value: 'text-emerald-600' },
 };
 
 const roleToneClasses: Record<AdminRoleTone, { icon: string; badge: string; text: string; managerBadge: string }> = {
   blue: {
-    icon: 'bg-blue-600 text-white',
+    icon: whiteIconSurface,
     badge: 'bg-blue-50 text-blue-600',
     text: 'text-blue-600',
     managerBadge: 'bg-blue-50 text-blue-700 border-blue-100',
   },
   purple: {
-    icon: 'bg-violet-600 text-white',
+    icon: whiteIconSurface,
     badge: 'bg-violet-50 text-violet-600',
     text: 'text-violet-600',
     managerBadge: 'bg-violet-50 text-violet-700 border-violet-100',
   },
   orange: {
-    icon: 'bg-orange-500 text-white',
+    icon: whiteIconSurface,
     badge: 'bg-orange-50 text-orange-600',
     text: 'text-orange-600',
     managerBadge: 'bg-orange-50 text-orange-700 border-orange-100',
   },
   green: {
-    icon: 'bg-emerald-600 text-white',
+    icon: whiteIconSurface,
     badge: 'bg-emerald-50 text-emerald-600',
     text: 'text-emerald-600',
     managerBadge: 'bg-emerald-50 text-emerald-700 border-emerald-100',
   },
   slate: {
-    icon: 'bg-slate-500 text-white',
+    icon: whiteIconSurface,
     badge: 'bg-slate-100 text-slate-600',
     text: 'text-slate-600',
     managerBadge: 'bg-slate-100 text-slate-700 border-slate-200',
@@ -264,7 +266,7 @@ function ManagersPanel({ managers }: { managers: AdminManager[] }) {
               <tr className="h-[52px] hover:bg-slate-50" key={manager.id}>
                 <td className="border-b border-slate-100 px-3">
                   <div className="flex min-w-0 items-center gap-3">
-                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-slate-200 text-slate-600">
+                    <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-full text-slate-600 ${whiteIconSurface}`}>
                       <ImageIcon className="h-8 w-8 object-contain" src={managerAvatarIconUrl} />
                     </span>
                     <div className="min-w-0 leading-tight">
@@ -342,7 +344,7 @@ function SecurityControlRow({ control }: { control: AdminSecurityControl }) {
 
   return (
     <div className="flex min-h-[48px] items-center gap-3 border-b border-slate-100 px-2 py-1.5 last:border-b-0">
-      <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg text-slate-600">
+      <div className={`grid h-8 w-8 shrink-0 place-items-center rounded-lg text-slate-600 ${whiteIconSurface}`}>
         <ImageIcon className="h-7 w-7 object-contain drop-shadow-sm" src={iconSrc} />
       </div>
       <div className="min-w-0 flex-1">

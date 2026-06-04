@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import {
   Activity,
   CalendarCheck,
-  CalendarDays,
   ChevronRight,
   Download,
   FileBarChart,
@@ -10,7 +9,6 @@ import {
   FileText,
   MoreVertical,
   RefreshCw,
-  Settings,
   type LucideIcon,
 } from 'lucide-react';
 import {
@@ -74,13 +72,15 @@ const statusIcons: Record<Exclude<ReportStatusItem['iconKey'], 'dot'>, LucideIco
   api: Activity,
 };
 
-const templateIcons: Record<ReportTemplate['iconKey'], LucideIcon> = {
-  daily: CalendarCheck,
-  weekly: CalendarCheck,
-  monthly: CalendarDays,
-  csv: FileSpreadsheet,
-  pdf: FileText,
+const templateIconAssets: Record<ReportTemplate['iconKey'], string> = {
+  daily: new URL('../../../asset/image-Photoroom (40).png', import.meta.url).href,
+  weekly: new URL('../../../asset/image-Photoroom (44).png', import.meta.url).href,
+  monthly: new URL('../../../asset/image-Photoroom (41).png', import.meta.url).href,
+  csv: new URL('../../../asset/image-Photoroom (35).png', import.meta.url).href,
+  pdf: new URL('../../../asset/image-Photoroom (38).png', import.meta.url).href,
 };
+
+const autoSendIconAsset = new URL('../../../asset/image-Photoroom (52).png', import.meta.url).href;
 
 function deltaClass(deltaTone: ReportMetric['deltaTone'] | CongestionAreaReport['deltaTone']) {
   if (deltaTone === 'success') {
@@ -192,15 +192,15 @@ function MetricTile({ metric }: { metric: ReportMetric }) {
 }
 
 function TemplateTile({ template }: { template: ReportTemplate }) {
-  const Icon = templateIcons[template.iconKey];
+  const iconAsset = templateIconAssets[template.iconKey];
 
   return (
     <button
-      className="flex h-[74px] min-w-0 items-center gap-4 rounded-lg border border-slate-200 bg-slate-50 px-4 text-left transition hover:border-blue-200 hover:bg-blue-50"
+      className="flex h-14 min-w-0 items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 px-3 text-left transition hover:border-blue-200 hover:bg-blue-50"
       type="button"
     >
-      <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-md border bg-white ${toneBg[template.tone]}`}>
-        <Icon aria-hidden="true" size={27} strokeWidth={2.5} />
+      <span className={`grid h-[34px] w-[34px] shrink-0 place-items-center rounded-md border bg-white ${toneBg[template.tone]}`}>
+        <img alt="" aria-hidden="true" className="h-7 w-7 object-contain drop-shadow-[0_4px_7px_rgba(15,23,42,0.10)]" src={iconAsset} />
       </span>
       <span className="min-w-0">
         <span className="block truncate text-base font-black leading-none text-slate-950">{template.title}</span>
@@ -212,15 +212,15 @@ function TemplateTile({ template }: { template: ReportTemplate }) {
 
 function ReportGenerator({ templates }: { templates: ReportTemplate[] }) {
   return (
-    <Card className="h-[132px] rounded-xl p-4">
-      <div className="mb-3 flex h-9 items-center justify-between gap-3">
+    <Card className="min-h-[132px] rounded-xl p-3 xl:h-[132px]">
+      <div className="mb-2 flex h-9 items-center justify-between gap-3">
         <h2 className="text-lg font-black leading-none tracking-normal text-slate-950">리포트 생성</h2>
         <div className="flex items-center gap-2">
-          <Button className="h-10 w-[132px] rounded-lg" variant="primary">
+          <Button className="h-9 w-[116px] rounded-lg text-xs" variant="primary">
             리포트 생성
           </Button>
-          <Button className="h-10 rounded-lg border-blue-200 text-blue-600" variant="secondary">
-            <Settings aria-hidden="true" size={17} />
+          <Button className="h-9 rounded-lg border-blue-200 text-xs text-blue-600" variant="secondary">
+            <img alt="" aria-hidden="true" className="h-4 w-4 object-contain" src={autoSendIconAsset} />
             자동 발송 설정
           </Button>
         </div>
