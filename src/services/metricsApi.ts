@@ -1,3 +1,4 @@
+import { areaDetailSnapshots } from '../mocks/areaDetail';
 import { apiHealthChecks, areaMetrics, cityRiskTrend } from '../mocks/areaMetrics';
 import { cultureSignals } from '../mocks/cultureSignals';
 import { dataQualityIssues } from '../mocks/dataQualityIssues';
@@ -28,6 +29,10 @@ export async function getAreaMetrics() {
 
 export async function getAreaMetricById(areaId: string) {
   return areaMetrics.find((area) => area.id === areaId) ?? areaMetrics[0];
+}
+
+export async function getAreaDetailById(areaId: string) {
+  return areaDetailSnapshots.find((area) => area.id === areaId) ?? areaDetailSnapshots[0];
 }
 
 export async function getApiHealthChecks() {

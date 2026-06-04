@@ -1,8 +1,12 @@
-import { noticeHistory } from '../mocks/noticeHistory';
+import { noticeHistory, noticeManagerSnapshot } from '../mocks/noticeHistory';
 import { type NoticeDraftInput } from '../types/notices';
 
 export async function getNoticeHistory() {
   return noticeHistory;
+}
+
+export async function getNoticeManagerSnapshot() {
+  return noticeManagerSnapshot;
 }
 
 export async function scheduleNoticeDraft(draft: NoticeDraftInput) {

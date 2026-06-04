@@ -1,8 +1,24 @@
-import { adminAuditLogs } from '../mocks/adminAuditLogs';
-import { type AdminActionRequest } from '../types/admin';
+import {
+  adminAuditLogs,
+  adminManagers,
+  adminRoles,
+  adminSecurityControls,
+  adminSummaryMetrics,
+} from '../mocks/adminAuditLogs';
+import { type AdminActionRequest, type AdminSettingsDashboard } from '../types/admin';
 
 export async function getAdminAuditLogs() {
   return adminAuditLogs;
+}
+
+export async function getAdminSettingsDashboard(): Promise<AdminSettingsDashboard> {
+  return {
+    summaryMetrics: adminSummaryMetrics,
+    roles: adminRoles,
+    managers: adminManagers,
+    securityControls: adminSecurityControls,
+    auditLogs: adminAuditLogs,
+  };
 }
 
 export async function requestAdminAction(action: AdminActionRequest) {

@@ -12,3 +12,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+.tmp-*
+.vite-*.err
+.vite-*.log
+retrip-1920x1080.png

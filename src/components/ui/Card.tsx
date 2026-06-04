@@ -13,7 +13,7 @@ function cn(...inputs: ClassValue[]) {
 export function Card({ children, className, ...props }: CardProps) {
   return (
     <section
-      className={cn('rounded-2xl border border-slate-200 bg-white p-5 shadow-sm shadow-slate-200/40', className)}
+      className={cn('rounded-lg border border-slate-200 bg-white p-5 shadow-sm shadow-slate-200/40', className)}
       {...props}
     >
       {children}
