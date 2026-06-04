@@ -39,13 +39,13 @@ function LogoMark() {
 
 export function Sidebar() {
   return (
-    <aside className="sticky top-0 hidden h-screen w-[228px] shrink-0 border-r border-slate-200 bg-white px-3 py-5 lg:flex lg:flex-col">
-      <div className="mb-7 flex items-center gap-3 px-4">
+    <aside className="sticky top-0 hidden h-screen w-[216px] shrink-0 border-r border-slate-200 bg-white px-3 py-5 lg:flex lg:flex-col">
+      <div className="mb-8 flex items-center gap-3 px-3">
         <LogoMark />
-        <span className="text-3xl font-black tracking-normal text-blue-600">NoriGo</span>
+        <span className="text-[26px] font-black tracking-normal text-blue-600">NoriGo</span>
       </div>
 
-      <nav className="space-y-2" aria-label="Dashboard navigation">
+      <nav className="space-y-2.5" aria-label="Dashboard navigation">
         {navItems.map((item) => {
           const Icon = item.icon;
 
@@ -53,7 +53,7 @@ export function Sidebar() {
             <NavLink
               className={({ isActive }) =>
                 [
-                  'flex h-12 items-center gap-3 rounded-lg px-3 text-[13px] font-bold transition',
+                  'flex h-[43px] items-center gap-3 rounded-lg px-3 text-[14px] font-bold transition',
                   isActive
                     ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/30'
                     : 'text-slate-700 hover:bg-slate-100 hover:text-slate-950',

@@ -166,12 +166,12 @@ function MetricTile({ metric }: { metric: AreaDetailMetric }) {
   const valueSizeClass = metric.value.length > 9 ? 'text-[22px] 2xl:text-[28px]' : 'text-[26px] 2xl:text-3xl';
 
   return (
-    <Card className="flex h-[84px] items-center rounded-xl border-slate-200/80 p-3 shadow-[0_10px_24px_rgba(15,23,42,0.045)] 2xl:h-[108px] 2xl:p-4">
-      <div className="mr-3 flex h-11 w-11 shrink-0 items-center justify-center 2xl:mr-4 2xl:h-14 2xl:w-14">
+    <Card className="flex h-[96px] items-center rounded-xl border-slate-200/80 p-4 shadow-[0_10px_24px_rgba(15,23,42,0.045)] xl:h-full">
+      <div className="mr-3 flex h-12 w-12 shrink-0 items-center justify-center 2xl:mr-4 2xl:h-14 2xl:w-14">
         {iconAsset ? (
-          <img alt="" aria-hidden="true" className="h-11 w-11 object-contain drop-shadow-sm 2xl:h-14 2xl:w-14" src={iconAsset} />
+          <img alt="" aria-hidden="true" className="h-12 w-12 object-contain drop-shadow-sm 2xl:h-14 2xl:w-14" src={iconAsset} />
         ) : Icon ? (
-          <Icon aria-hidden="true" className={`${toneText[metric.tone]} h-11 w-11 2xl:h-12 2xl:w-12`} strokeWidth={2.9} />
+          <Icon aria-hidden="true" className={`${toneText[metric.tone]} h-12 w-12`} strokeWidth={2.9} />
         ) : null}
       </div>
       <div className="min-w-0">
@@ -216,15 +216,15 @@ function TrendPanel({ data }: { data: AreaTrendBucket[] }) {
   const endMinutes = timeToMinutes('10:30');
 
   return (
-    <Card className="h-[170px] rounded-xl border-slate-200/80 p-3 shadow-[0_10px_24px_rgba(15,23,42,0.045)] 2xl:h-[232px] 2xl:p-3.5">
-      <div className="mb-1 flex items-start justify-between 2xl:mb-1.5">
-        <h2 className="text-[14px] font-black tracking-normal text-slate-950 2xl:text-base">최근 1시간 현황</h2>
+    <Card className="flex h-[198px] flex-col rounded-xl border-slate-200/80 p-4 shadow-[0_10px_24px_rgba(15,23,42,0.045)] xl:h-full">
+      <div className="mb-2 flex items-start justify-between">
+        <h2 className="text-base font-black tracking-normal text-slate-950">최근 1시간 현황</h2>
         <button className="inline-flex items-center text-xs font-black text-blue-600" type="button">
           상세 보기
           <ChevronRight aria-hidden="true" size={15} />
         </button>
       </div>
-      <div className="mb-0 flex items-center gap-5 text-[10px] font-black 2xl:mb-0.5 2xl:gap-8 2xl:text-[11px]">
+      <div className="mb-1 flex items-center gap-6 text-[11px] font-black 2xl:gap-8">
         <span className="text-red-500">혼잡도</span>
         <span className="inline-flex items-center gap-2 text-slate-700">
           <span className="h-2 w-2 rounded-full bg-red-500" />
@@ -236,7 +236,7 @@ function TrendPanel({ data }: { data: AreaTrendBucket[] }) {
         </span>
         <span className="ml-auto text-teal-600">Re-Trip 활동</span>
       </div>
-      <div className="h-[124px] 2xl:h-[176px]">
+      <div className="min-h-0 flex-1">
         <svg aria-label="최근 1시간 혼잡도와 Re-Trip 활동 추이" className="h-full w-full" role="img" viewBox={`0 0 ${chartFrame.width} ${chartFrame.height}`}>
           <defs>
             <linearGradient id="areaDetailCrowdFill" x1="0" x2="0" y1="0" y2="1">
@@ -285,17 +285,17 @@ function TrendPanel({ data }: { data: AreaTrendBucket[] }) {
 
 function RiskBasisPanel({ factors, finalRiskScore }: { factors: AreaRiskFactor[]; finalRiskScore: string }) {
   return (
-    <Card className="h-[170px] rounded-xl border-slate-200/80 p-3 shadow-[0_10px_24px_rgba(15,23,42,0.045)] 2xl:h-[232px] 2xl:p-3.5">
-      <div className="mb-2 flex items-center gap-2 2xl:mb-3">
-        <h2 className="text-[14px] font-black tracking-normal text-slate-950 2xl:text-base">risk_score 근거</h2>
+    <Card className="flex h-[198px] flex-col rounded-xl border-slate-200/80 p-4 shadow-[0_10px_24px_rgba(15,23,42,0.045)] xl:h-full">
+      <div className="mb-3 flex items-center gap-2">
+        <h2 className="text-base font-black tracking-normal text-slate-950">risk_score 근거</h2>
         <Info aria-hidden="true" className="text-slate-400" size={16} />
       </div>
-      <div className="space-y-2 2xl:space-y-3">
+      <div className="space-y-3">
         {factors.map((factor) => {
           const Icon = riskIconByKey[factor.iconKey];
 
           return (
-            <div className="flex items-center justify-between text-[13px] font-extrabold 2xl:text-[15px]" key={factor.id}>
+            <div className="flex items-center justify-between text-[15px] font-extrabold" key={factor.id}>
               <div className="flex items-center gap-3 text-slate-700">
                 <Icon aria-hidden="true" className="text-slate-500" size={20} />
                 {factor.label}
@@ -305,15 +305,15 @@ function RiskBasisPanel({ factors, finalRiskScore }: { factors: AreaRiskFactor[]
           );
         })}
       </div>
-      <div className="my-2 border-t border-dashed border-slate-300 2xl:my-3" />
+      <div className="my-3 border-t border-dashed border-slate-300" />
       <div className="flex items-center justify-between">
-        <p className="text-[14px] font-black text-slate-950 2xl:text-base">최종 risk_score</p>
+        <p className="text-base font-black text-slate-950">최종 risk_score</p>
         <p className="text-2xl font-black leading-none text-red-500 2xl:text-3xl">
           {finalRiskScore.split(' ')[0]}
           <span className="ml-1 text-base text-slate-950">/100</span>
         </p>
       </div>
-      <button className="mt-2 ml-auto flex items-center text-xs font-black text-blue-600 2xl:mt-3 2xl:text-sm" type="button">
+      <button className="mt-auto ml-auto flex items-center text-sm font-black text-blue-600" type="button">
         자세히 보기
         <ChevronRight aria-hidden="true" size={16} />
       </button>
@@ -323,18 +323,18 @@ function RiskBasisPanel({ factors, finalRiskScore }: { factors: AreaRiskFactor[]
 
 function ActionPanel({ actions }: { actions: AreaAction[] }) {
   return (
-    <Card className="h-[170px] rounded-xl border-slate-200/80 p-3 shadow-[0_10px_24px_rgba(15,23,42,0.045)] 2xl:h-[232px] 2xl:p-3.5">
-      <div className="mb-2 flex items-center gap-2 2xl:mb-3">
-        <h2 className="text-[14px] font-black tracking-normal text-slate-950 2xl:text-base">운영 액션</h2>
+    <Card className="flex h-[198px] flex-col rounded-xl border-slate-200/80 p-4 shadow-[0_10px_24px_rgba(15,23,42,0.045)] xl:h-full">
+      <div className="mb-3 flex items-center gap-2">
+        <h2 className="text-base font-black tracking-normal text-slate-950">운영 액션</h2>
         <Info aria-hidden="true" className="text-slate-400" size={16} />
       </div>
-      <div className="grid grid-cols-2 gap-2 2xl:gap-2.5">
+      <div className="grid flex-1 grid-cols-2 content-stretch gap-3">
         {actions.map((action) => {
           const Icon = actionIconByKey[action.iconKey];
 
           return (
             <button
-              className={`inline-flex h-[36px] items-center justify-center gap-2 rounded-lg border text-[12px] font-black 2xl:h-[48px] 2xl:gap-2.5 2xl:text-[15px] ${toneBorder[action.tone]} ${
+              className={`inline-flex min-h-0 items-center justify-center gap-2 rounded-lg border px-2 text-[13px] font-black 2xl:gap-2.5 2xl:text-[15px] ${toneBorder[action.tone]} ${
                 action.wide ? 'col-span-2' : ''
               }`}
               key={action.id}
@@ -362,32 +362,32 @@ function LiveMessagePanel({
   };
 }) {
   return (
-    <Card className="h-[170px] rounded-xl border-slate-200/80 p-2.5 shadow-[0_10px_24px_rgba(15,23,42,0.045)] 2xl:h-[216px] 2xl:p-3">
-      <h2 className="mb-1.5 text-[14px] font-black tracking-normal text-slate-950 2xl:mb-2 2xl:text-base">실시간 메시지</h2>
-      <div className="rounded-lg border border-red-200 bg-gradient-to-br from-red-50 to-white p-2.5 2xl:p-3">
-        <div className="mb-1 flex gap-2 2xl:mb-2 2xl:gap-2.5">
+    <Card className="flex h-[184px] flex-col rounded-xl border-slate-200/80 p-3.5 shadow-[0_10px_24px_rgba(15,23,42,0.045)] xl:h-full">
+      <h2 className="mb-2 text-base font-black tracking-normal text-slate-950">실시간 메시지</h2>
+      <div className="flex flex-1 flex-col rounded-lg border border-red-200 bg-gradient-to-br from-red-50 to-white p-3">
+        <div className="mb-2 flex gap-2.5">
           <AlertTriangle aria-hidden="true" className="mt-0.5 shrink-0 text-red-500 2xl:mt-1" size={24} />
           <div className="min-w-0">
-            <p className="truncate text-[13px] font-black text-red-600 2xl:text-[15px]">{liveMessage.title}</p>
-            <p className="mt-0.5 text-[10px] font-extrabold text-slate-800 2xl:text-[12px]">{liveMessage.description}</p>
+            <p className="truncate text-[15px] font-black text-red-600">{liveMessage.title}</p>
+            <p className="mt-0.5 text-[12px] font-extrabold text-slate-800">{liveMessage.description}</p>
           </div>
         </div>
-        <p className="mb-1.5 truncate text-[10px] font-extrabold text-slate-800 2xl:mb-2 2xl:text-[12px]">{liveMessage.guidance}</p>
-        <div className="grid grid-cols-3 gap-1 2xl:gap-1.5">
+        <p className="mb-2 truncate text-[12px] font-extrabold text-slate-800">{liveMessage.guidance}</p>
+        <div className="grid grid-cols-3 gap-1.5">
           {liveMessage.places.map((place) => (
             <button
-              className="rounded-lg border border-blue-200 bg-white px-1.5 py-1 text-left text-[10px] font-black text-blue-700 2xl:px-2 2xl:py-1.5 2xl:text-[11px]"
+              className="rounded-lg border border-blue-200 bg-white px-2 py-1.5 text-left text-[11px] font-black text-blue-700"
               key={place.id}
               type="button"
             >
               <span className="block truncate">{place.name}</span>
-              <span className="hidden truncate text-slate-500 2xl:mt-1 2xl:block">{place.route}</span>
+              <span className="mt-1 hidden truncate text-slate-500 2xl:block">{place.route}</span>
             </button>
           ))}
         </div>
-        <div className="mt-1.5 flex items-center justify-between 2xl:mt-2">
-          <span className="text-[10px] font-bold text-slate-500 2xl:text-xs">발생 시간&nbsp;&nbsp;{liveMessage.occurredAt}</span>
-          <button className="inline-flex h-6 items-center gap-1 rounded-md bg-red-50 px-2 text-[10px] font-black text-red-600 2xl:h-7 2xl:px-3 2xl:text-xs" type="button">
+        <div className="mt-auto flex items-center justify-between pt-2">
+          <span className="text-xs font-bold text-slate-500">발생 시간&nbsp;&nbsp;{liveMessage.occurredAt}</span>
+          <button className="inline-flex h-7 items-center gap-1 rounded-md bg-red-50 px-3 text-xs font-black text-red-600" type="button">
             <span className="2xl:hidden">추천 현황</span>
             <span className="hidden 2xl:inline">대체 장소 추천 현황 보기</span>
             <ChevronRight aria-hidden="true" size={14} />
@@ -400,16 +400,16 @@ function LiveMessagePanel({
 
 function TransportPanel({ rows }: { rows: AreaTransportInfo[] }) {
   return (
-    <Card className="h-[170px] rounded-xl border-slate-200/80 p-2.5 shadow-[0_10px_24px_rgba(15,23,42,0.045)] 2xl:h-[216px] 2xl:p-3">
-      <h2 className="mb-1 text-[14px] font-black tracking-normal text-slate-950 2xl:mb-1.5 2xl:text-base">교통·현장 정보</h2>
-      <div className="divide-y divide-slate-200">
+    <Card className="flex h-[184px] flex-col rounded-xl border-slate-200/80 p-3.5 shadow-[0_10px_24px_rgba(15,23,42,0.045)] xl:h-full">
+      <h2 className="mb-2 text-base font-black tracking-normal text-slate-950">교통·현장 정보</h2>
+      <div className="grid flex-1 grid-rows-6 divide-y divide-slate-200">
         {rows.map((row) => {
           const Icon = smallIconByKey[row.iconKey];
 
           return (
-            <div className="flex h-[17px] items-center justify-between gap-1.5 text-[10px] font-extrabold 2xl:h-[28px] 2xl:gap-3 2xl:text-[13px]" key={row.id}>
+            <div className="flex min-h-0 items-center justify-between gap-3 text-[13px] font-extrabold" key={row.id}>
               <div className="flex items-center gap-3 text-slate-800">
-                <Icon aria-hidden="true" className={`${toneText[row.tone]} h-3.5 w-3.5 2xl:h-[19px] 2xl:w-[19px]`} />
+                <Icon aria-hidden="true" className={`${toneText[row.tone]} h-[19px] w-[19px]`} />
                 {row.mode}
               </div>
               <span className="truncate text-right text-slate-700">{row.value}</span>
@@ -423,19 +423,19 @@ function TransportPanel({ rows }: { rows: AreaTransportInfo[] }) {
 
 function RecommendedPanel({ places }: { places: Array<{ id: string; rank: number; name: string; share: string; imageFile: string }> }) {
   return (
-    <Card className="h-[170px] rounded-xl border-slate-200/80 p-2.5 shadow-[0_10px_24px_rgba(15,23,42,0.045)] 2xl:h-[216px] 2xl:p-3">
+    <Card className="flex h-[184px] flex-col rounded-xl border-slate-200/80 p-3.5 shadow-[0_10px_24px_rgba(15,23,42,0.045)] xl:h-full">
       <SectionTitle actionLabel="전체 보기" title="추천 대체 장소 TOP 5" />
-      <div className="space-y-0.5 2xl:space-y-2">
+      <div className="grid flex-1 grid-rows-5 gap-1.5">
         {places.map((place) => (
-          <div className="grid h-[18px] grid-cols-[18px_30px_1fr_auto] items-center gap-1.5 text-[10px] font-black 2xl:h-[27px] 2xl:grid-cols-[22px_42px_1fr_auto] 2xl:gap-2 2xl:text-[13px]" key={place.id}>
+          <div className="grid min-h-0 grid-cols-[22px_42px_1fr_auto] items-center gap-2 text-[13px] font-black" key={place.id}>
             <span
-              className={`grid h-4 w-4 place-items-center rounded-full text-[9px] text-white 2xl:h-5 2xl:w-5 2xl:text-xs ${
+              className={`grid h-5 w-5 place-items-center rounded-full text-xs text-white ${
                 place.rank === 1 ? 'bg-red-500' : place.rank === 2 ? 'bg-red-400' : place.rank === 3 ? 'bg-orange-400' : 'bg-slate-500'
               }`}
             >
               {place.rank}
             </span>
-            <img alt="" className="h-[18px] w-7 rounded-md object-cover 2xl:h-7 2xl:w-10" src={placeImages[place.imageFile]} />
+            <img alt="" className="h-7 w-10 rounded-md object-cover" src={placeImages[place.imageFile]} />
             <span className="truncate text-slate-900">{place.name}</span>
             <span className="whitespace-nowrap text-xs text-slate-600">{place.share}</span>
           </div>
@@ -447,12 +447,12 @@ function RecommendedPanel({ places }: { places: Array<{ id: string; rank: number
 
 function CulturePanel({ questions }: { questions: AreaCultureQuestion[] }) {
   return (
-    <Card className="h-[170px] rounded-xl border-slate-200/80 p-2.5 shadow-[0_10px_24px_rgba(15,23,42,0.045)] 2xl:h-[216px] 2xl:p-3">
+    <Card className="flex h-[184px] flex-col rounded-xl border-slate-200/80 p-3.5 shadow-[0_10px_24px_rgba(15,23,42,0.045)] xl:h-full">
       <SectionTitle actionLabel="전체 보기" title="최근 Culture Scan 질문" />
-      <div className="space-y-0.5 2xl:space-y-2">
+      <div className="grid flex-1 grid-rows-6 gap-1">
         {questions.map((item) => (
-          <div className="grid h-[16px] grid-cols-[42px_1fr_32px] items-center gap-1.5 text-[10px] font-bold 2xl:h-[22px] 2xl:grid-cols-[50px_1fr_40px] 2xl:gap-2 2xl:text-[12px]" key={item.id}>
-            <span className={`rounded-full border px-1 py-0 text-center text-[9px] font-black 2xl:px-2 2xl:py-1 2xl:text-xs ${toneBorder[item.tone]}`}>{item.category}</span>
+          <div className="grid min-h-0 grid-cols-[50px_1fr_40px] items-center gap-2 text-[12px] font-bold" key={item.id}>
+            <span className={`rounded-full border px-2 py-1 text-center text-xs font-black ${toneBorder[item.tone]}`}>{item.category}</span>
             <span className="truncate text-slate-800">{item.question}</span>
             <span className="text-right text-xs font-black text-slate-500">{item.time}</span>
           </div>
@@ -464,13 +464,13 @@ function CulturePanel({ questions }: { questions: AreaCultureQuestion[] }) {
 
 function ResponseMetricsPanel({ metrics }: { metrics: AreaResponseMetric[] }) {
   return (
-    <Card className="h-[112px] rounded-xl border-slate-200/80 p-2.5 shadow-[0_10px_24px_rgba(15,23,42,0.045)] 2xl:h-[148px] 2xl:p-3">
-      <div className="mb-1 flex items-baseline gap-2 2xl:mb-1.5 2xl:gap-3">
-        <h2 className="text-[14px] font-black tracking-normal text-slate-950 2xl:text-base">앱 반응 지표</h2>
-        <span className="text-[10px] font-bold text-slate-500 2xl:text-xs">(최근 1시간)</span>
+    <Card className="flex h-[136px] flex-col rounded-xl border-slate-200/80 p-3.5 shadow-[0_10px_24px_rgba(15,23,42,0.045)] xl:h-full">
+      <div className="mb-2 flex items-baseline gap-3">
+        <h2 className="text-base font-black tracking-normal text-slate-950">앱 반응 지표</h2>
+        <span className="text-xs font-bold text-slate-500">(최근 1시간)</span>
       </div>
-      <div className="overflow-hidden rounded-lg border border-slate-200">
-        <div className="grid h-5 grid-cols-[1fr_92px_64px] items-center bg-slate-50 px-2 text-[10px] font-black text-slate-700 2xl:h-6 2xl:grid-cols-[1fr_116px_82px] 2xl:px-3 2xl:text-[11px]">
+      <div className="flex flex-1 flex-col overflow-hidden rounded-lg border border-slate-200">
+        <div className="grid h-6 grid-cols-[1fr_116px_82px] items-center bg-slate-50 px-3 text-[11px] font-black text-slate-700">
           <span>지표</span>
           <span className="text-right">현재</span>
           <span className="text-right">전일 대비</span>
@@ -479,7 +479,7 @@ function ResponseMetricsPanel({ metrics }: { metrics: AreaResponseMetric[] }) {
           const Icon = responseIconByKey[metric.iconKey];
 
           return (
-            <div className="grid h-[19px] grid-cols-[1fr_92px_64px] items-center border-t border-slate-200 px-2 text-[10px] font-black 2xl:h-[24px] 2xl:grid-cols-[1fr_116px_82px] 2xl:px-3 2xl:text-[12px]" key={metric.id}>
+            <div className="grid flex-1 grid-cols-[1fr_116px_82px] items-center border-t border-slate-200 px-3 text-[12px] font-black" key={metric.id}>
               <span className="flex items-center gap-3 text-slate-800">
                 <Icon aria-hidden="true" className="text-blue-500" size={18} />
                 {metric.label}
@@ -502,23 +502,23 @@ function LogToneDot({ tone }: { tone: AreaDetailTone }) {
 
 function OperationLogPanel({ logs }: { logs: AreaOperationLog[] }) {
   return (
-    <Card className="h-[112px] rounded-xl border-slate-200/80 p-2.5 shadow-[0_10px_24px_rgba(15,23,42,0.045)] 2xl:h-[148px] 2xl:p-3">
-      <div className="mb-1 flex items-center justify-between 2xl:mb-1.5">
-        <h2 className="text-[14px] font-black tracking-normal text-slate-950 2xl:text-base">담당자 메모 / 운영 기록</h2>
+    <Card className="flex h-[136px] flex-col rounded-xl border-slate-200/80 p-3.5 shadow-[0_10px_24px_rgba(15,23,42,0.045)] xl:h-full">
+      <div className="mb-2 flex items-center justify-between">
+        <h2 className="text-base font-black tracking-normal text-slate-950">담당자 메모 / 운영 기록</h2>
         <button className="inline-flex items-center text-xs font-black text-blue-600" type="button">
           전체 보기
           <ChevronRight aria-hidden="true" size={15} />
         </button>
       </div>
-      <div className="divide-y divide-slate-200">
+      <div className="grid flex-1 grid-rows-3 divide-y divide-slate-200">
         {logs.map((log) => (
-          <div className="grid h-[26px] grid-cols-[14px_44px_62px_1fr_80px] items-center gap-2 text-[10px] 2xl:h-[34px] 2xl:grid-cols-[18px_52px_76px_1fr_96px] 2xl:gap-3 2xl:text-[12px]" key={log.id}>
+          <div className="grid min-h-0 grid-cols-[18px_52px_76px_1fr_96px] items-center gap-3 text-[12px]" key={log.id}>
             <LogToneDot tone={log.tone} />
             <span className="font-black text-slate-700">{log.time}</span>
             <span className={`rounded-md border px-1.5 py-0.5 text-center text-[10px] font-black 2xl:px-2 2xl:text-[11px] ${toneBorder[log.tone]}`}>{log.tag}</span>
             <div className="min-w-0">
               <p className="truncate font-black text-slate-900">{log.title}</p>
-              <p className="truncate text-[9px] font-bold text-slate-500 2xl:text-[11px]">{log.description}</p>
+              <p className="truncate text-[11px] font-bold text-slate-500">{log.description}</p>
             </div>
             <span className="text-right text-xs font-bold text-slate-500">{log.operator}</span>
           </div>
@@ -537,10 +537,10 @@ export function AreaDetailPage() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-[1608px] space-y-1.5 2xl:space-y-2.5">
-      <div className="flex h-[34px] items-center justify-between gap-2 2xl:h-[40px] 2xl:gap-3">
+    <div className="w-full max-w-none space-y-3 pb-3 xl:grid xl:h-full xl:min-h-[760px] xl:grid-rows-[40px_108px_minmax(0,1.45fr)_minmax(0,1.35fr)_minmax(0,0.95fr)] xl:gap-3 xl:space-y-0 xl:overflow-hidden xl:pb-0">
+      <div className="flex h-10 items-center justify-between gap-3 xl:h-full">
         <button
-          className="flex h-full min-w-0 flex-1 items-center justify-between rounded-xl border border-slate-200 bg-white px-4 text-[13px] font-black text-slate-900 shadow-sm shadow-slate-200/40 2xl:px-5 2xl:text-base"
+          className="flex h-full min-w-0 max-w-[560px] flex-1 items-center justify-between rounded-xl border border-slate-200 bg-white px-5 text-base font-black text-slate-900 shadow-sm shadow-slate-200/40"
           type="button"
         >
           <span className="flex min-w-0 items-center gap-5">
@@ -552,36 +552,36 @@ export function AreaDetailPage() {
           </span>
           <ChevronDown aria-hidden="true" className="shrink-0 text-slate-500" size={18} />
         </button>
-        <span className="inline-flex h-full items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 text-xs font-black text-emerald-700 2xl:px-4 2xl:text-sm">
+        <span className="inline-flex h-full items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 text-sm font-black text-emerald-700">
           <span className="h-2 w-2 rounded-full bg-emerald-500" />
           실시간
         </span>
-        <p className="ml-auto hidden text-xs font-bold text-slate-600 xl:block 2xl:text-sm">
+        <p className="ml-auto hidden text-sm font-bold text-slate-600 xl:block">
           기준 시간: {area.standardTimeLabel}
           <Info aria-hidden="true" className="ml-2 inline text-slate-400" size={15} />
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-5 2xl:gap-3">
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:h-full xl:grid-cols-5">
         {area.metrics.map((metric) => (
           <MetricTile key={metric.id} metric={metric} />
         ))}
       </div>
 
-      <div className="grid gap-1.5 xl:grid-cols-[1.65fr_0.82fr_1.23fr] 2xl:gap-2.5">
+      <div className="grid gap-3 xl:h-full xl:grid-cols-[1.55fr_0.92fr_1.22fr]">
         <TrendPanel data={area.trend} />
         <RiskBasisPanel factors={area.riskFactors} finalRiskScore={area.finalRiskScore} />
         <ActionPanel actions={area.actions} />
       </div>
 
-      <div className="grid gap-1.5 xl:grid-cols-[1.13fr_0.94fr_0.88fr_1fr] 2xl:gap-2.5">
+      <div className="grid gap-3 xl:h-full xl:grid-cols-[1.05fr_0.9fr_0.9fr_1.08fr]">
         <LiveMessagePanel liveMessage={area.liveMessage} />
         <TransportPanel rows={area.transport} />
         <RecommendedPanel places={area.recommendedPlaces} />
         <CulturePanel questions={area.cultureQuestions} />
       </div>
 
-      <div className="grid gap-1.5 xl:grid-cols-[0.74fr_1.5fr] 2xl:gap-2.5">
+      <div className="grid gap-3 xl:h-full xl:grid-cols-[0.78fr_1.62fr]">
         <ResponseMetricsPanel metrics={area.responseMetrics} />
         <OperationLogPanel logs={area.operationLogs} />
       </div>

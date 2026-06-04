@@ -1,20 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import {
-  AlertTriangle,
-  CalendarDays,
-  CheckCircle2,
-  ChevronDown,
-  ChevronRight,
-  Clock3,
-  CopyCheck,
-  Globe2,
-  Info,
-  MousePointer2,
-  RefreshCw,
-  Send,
-  type LucideIcon,
-} from 'lucide-react';
-import {
   Bar,
   CartesianGrid,
   ComposedChart,
@@ -25,6 +10,15 @@ import {
   YAxis,
 } from 'recharts';
 import bukchonPreviewImage from '../../../asset/a34420e0-119e-4642-b5c8-439d1ce5b399.png';
+import statusCheckIcon from '../../../asset/image-Photoroom (11).png';
+import statusRefreshIcon from '../../../asset/image-Photoroom (12).png';
+import calendarIcon from '../../../asset/image-Photoroom (40).png';
+import sendIcon from '../../../asset/image-Photoroom (52).png';
+import cursorIcon from '../../../asset/image-Photoroom (53).png';
+import clockIcon from '../../../asset/image-Photoroom (54).png';
+import refreshIcon from '../../../asset/image-Photoroom (55).png';
+import globeIcon from '../../../asset/image-Photoroom (56).png';
+import alertIcon from '../../../asset/image-Photoroom (57).png';
 import { getNoticeManagerSnapshot } from '../../services/noticesApi';
 import {
   type NoticeDeliveryRecord,
@@ -34,13 +28,13 @@ import {
   type NoticeKpiTone,
 } from '../../types/notices';
 
-const kpiIcons: Record<NoticeKpiIcon, LucideIcon> = {
-  alert: AlertTriangle,
-  clock: Clock3,
-  cursor: MousePointer2,
-  globe: Globe2,
-  refresh: RefreshCw,
-  send: Send,
+const kpiIcons: Record<NoticeKpiIcon, string> = {
+  alert: alertIcon,
+  clock: clockIcon,
+  cursor: cursorIcon,
+  globe: globeIcon,
+  refresh: refreshIcon,
+  send: sendIcon,
 };
 
 const kpiToneClasses: Record<NoticeKpiTone, string> = {
@@ -72,14 +66,29 @@ function formatPercent(value: number | null) {
   return value === null ? '-' : `${value.toFixed(value % 1 === 0 ? 0 : 1)}%`;
 }
 
+function ImageIcon({ className, src }: { className: string; src: string }) {
+  return <img alt="" aria-hidden="true" className={`${className} shrink-0 object-contain`} src={src} />;
+}
+
+function InfoDot() {
+  return (
+    <span
+      aria-hidden="true"
+      className="inline-grid h-[17px] w-[17px] shrink-0 place-items-center rounded-full border border-slate-300 text-[11px] font-black leading-none text-slate-400"
+    >
+      i
+    </span>
+  );
+}
+
 function KpiCard({ item }: { item: NoticeKpi }) {
-  const Icon = kpiIcons[item.icon];
+  const iconSrc = kpiIcons[item.icon];
   const trendPrefix = item.deltaDirection === 'up' ? '▲' : item.deltaDirection === 'down' ? '▼' : '';
 
   return (
     <section className="h-[124px] rounded-lg border border-slate-200 bg-white px-6 py-5 shadow-sm shadow-slate-200/50">
       <div className="flex h-full items-center gap-5">
-        <Icon aria-hidden="true" className={kpiToneClasses[item.tone]} size={50} strokeWidth={2.1} />
+        <ImageIcon className="h-[58px] w-[58px] drop-shadow-sm" src={iconSrc} />
         <div className="min-w-0 flex-1 text-center">
           <p className="text-[14px] font-black leading-tight text-slate-950">{item.label}</p>
           <p className={`mt-1 text-[34px] font-black leading-none tracking-normal ${kpiToneClasses[item.tone]}`}>
@@ -234,7 +243,7 @@ function NoticeComposer() {
                   className="h-10 w-[144px] rounded-md border border-slate-300 px-3 pr-9 text-sm font-bold text-slate-800 outline-none"
                   defaultValue="2025-05-19"
                 />
-                <CalendarDays aria-hidden="true" className="absolute right-3 top-2.5 text-slate-500" size={18} />
+                <ImageIcon className="absolute right-2.5 top-2 h-6 w-6" src={calendarIcon} />
               </label>
               <label className="relative">
                 <span className="sr-only">예약 시간</span>
@@ -242,7 +251,7 @@ function NoticeComposer() {
                   className="h-10 w-[118px] rounded-md border border-slate-300 px-3 pr-9 text-sm font-bold text-slate-800 outline-none"
                   defaultValue="12:00"
                 />
-                <Clock3 aria-hidden="true" className="absolute right-3 top-2.5 text-slate-500" size={18} />
+                <ImageIcon className="absolute right-2.5 top-2 h-6 w-6" src={clockIcon} />
               </label>
             </div>
           </div>
@@ -331,7 +340,9 @@ function DeliveryHistory({ rows }: { rows: NoticeDeliveryRecord[] }) {
         <h2 className="text-xl font-black text-slate-950">발송 이력</h2>
         <button className="inline-flex items-center gap-1 text-sm font-black text-blue-600" type="button">
           전체 보기
-          <ChevronRight aria-hidden="true" size={17} />
+          <span aria-hidden="true" className="text-lg leading-none">
+            ›
+          </span>
         </button>
       </div>
 
@@ -375,14 +386,16 @@ function NoticePerformanceChart({ data }: { data: Array<{ date: string; clicks: 
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <h2 className="text-xl font-black text-slate-950">공지 성과</h2>
-          <Info aria-hidden="true" className="text-slate-400" size={17} />
+          <InfoDot />
         </div>
         <button
           className="inline-flex h-9 items-center gap-2 rounded-md border border-slate-300 px-3 text-sm font-black text-slate-700"
           type="button"
         >
           최근 7일
-          <ChevronDown aria-hidden="true" size={16} />
+          <span aria-hidden="true" className="text-sm leading-none">
+            ▾
+          </span>
         </button>
       </div>
 
@@ -456,15 +469,15 @@ export function VisitorNoticeManagerPage() {
             서울 실시간 도시데이터 정상
           </span>
           <span className="inline-flex items-center gap-2">
-            <RefreshCw aria-hidden="true" className="text-blue-600" size={17} />
+            <ImageIcon className="h-5 w-5" src={statusRefreshIcon} />
             마지막 갱신 10:32
           </span>
           <span className="inline-flex items-center gap-2">
-            <CopyCheck aria-hidden="true" className="text-blue-600" size={17} />
+            <ImageIcon className="h-5 w-5" src={calendarIcon} />
             121개 중 118개 수신 성공
           </span>
           <span className="inline-flex items-center gap-2">
-            <CheckCircle2 aria-hidden="true" className="text-emerald-600" size={17} />
+            <ImageIcon className="h-5 w-5" src={statusCheckIcon} />
             API 상태&nbsp; 98.4%
           </span>
         </div>
@@ -492,20 +505,20 @@ export function VisitorNoticeManagerPage() {
               className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-blue-500 bg-white text-base font-black text-blue-700 shadow-sm"
               type="button"
             >
-              <CalendarDays aria-hidden="true" size={19} />
+              <ImageIcon className="h-5 w-5" src={calendarIcon} />
               예약 저장
             </button>
             <button
               className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-blue-600 bg-blue-600 text-base font-black text-white shadow-sm"
               type="button"
             >
-              <Send aria-hidden="true" size={18} />
+              <ImageIcon className="h-5 w-5 brightness-0 invert" src={sendIcon} />
               즉시 발송
             </button>
           </div>
 
           <p className="flex items-center gap-2 text-xs font-bold text-slate-400 xl:col-span-2">
-            <Info aria-hidden="true" size={16} />
+            <InfoDot />
             공지 발송은 지역 단위 집계 데이터 기반으로 이루어지며, 개별 사용자를 식별하거나 추적하지 않습니다.
           </p>
         </div>
