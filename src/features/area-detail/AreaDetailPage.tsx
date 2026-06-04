@@ -4,17 +4,11 @@ import {
   AlertTriangle,
   Bike,
   Bus,
-  CheckCircle2,
   ChevronDown,
   ChevronRight,
-  CircleMinus,
   Clock3,
   CloudSun,
-  FilePenLine,
   Info,
-  MapPin,
-  Megaphone,
-  MessageCircle,
   ParkingCircle,
   RefreshCw,
   Search,
@@ -37,9 +31,12 @@ import {
   type AreaTransportInfo,
 } from '../../types/area';
 
-const metricIconAssets = {
+const metricIconAssets: Record<AreaDetailMetric['iconKey'], string> = {
   crowd: new URL('../../../asset/image-removebg-preview (11).png', import.meta.url).href,
   risk: new URL('../../../asset/image-removebg-preview (5).png', import.meta.url).href,
+  population: new URL('../../../asset/image-Photoroom (23).png', import.meta.url).href,
+  retrip: new URL('../../../asset/image-removebg-preview (7).png', import.meta.url).href,
+  culture: new URL('../../../asset/image-removebg-preview (8).png', import.meta.url).href,
 };
 
 const placeImages: Record<string, string> = {
@@ -63,12 +60,6 @@ const placeImages: Record<string, string> = {
     '../../../asset/91fb8fb5-6470-4342-bbb0-a6f390442976.png',
     import.meta.url,
   ).href,
-};
-
-const metricVectorIcons: Partial<Record<AreaDetailMetric['iconKey'], LucideIcon>> = {
-  population: Users,
-  retrip: RefreshCw,
-  culture: MessageCircle,
 };
 
 const toneText: Record<AreaDetailTone, string> = {
@@ -106,12 +97,12 @@ const riskIconByKey: Record<AreaRiskFactor['iconKey'], LucideIcon> = {
   weather: CloudSun,
 };
 
-const actionIconByKey: Record<AreaAction['iconKey'], LucideIcon> = {
-  mapPin: MapPin,
-  megaphone: Megaphone,
-  memo: FilePenLine,
-  minus: CircleMinus,
-  check: CheckCircle2,
+const actionIconAssets: Record<AreaAction['iconKey'], string> = {
+  mapPin: new URL('../../../asset/image-Photoroom (58).png', import.meta.url).href,
+  megaphone: new URL('../../../asset/image-Photoroom (59).png', import.meta.url).href,
+  memo: new URL('../../../asset/image-Photoroom (60).png', import.meta.url).href,
+  minus: new URL('../../../asset/image-Photoroom (61).png', import.meta.url).href,
+  check: new URL('../../../asset/image-removebg-preview (19).png', import.meta.url).href,
 };
 
 const responseIconByKey: Record<AreaResponseMetric['iconKey'], LucideIcon> = {
@@ -161,18 +152,13 @@ function pointsToString(points: Array<{ x: number; y: number }>) {
 }
 
 function MetricTile({ metric }: { metric: AreaDetailMetric }) {
-  const Icon = metricVectorIcons[metric.iconKey];
-  const iconAsset = metric.iconKey === 'crowd' || metric.iconKey === 'risk' ? metricIconAssets[metric.iconKey] : null;
+  const iconAsset = metricIconAssets[metric.iconKey];
   const valueSizeClass = metric.value.length > 9 ? 'text-[22px] 2xl:text-[28px]' : 'text-[26px] 2xl:text-3xl';
 
   return (
     <Card className="flex h-[96px] items-center rounded-xl border-slate-200/80 p-4 shadow-[0_10px_24px_rgba(15,23,42,0.045)] xl:h-full">
       <div className="mr-3 flex h-12 w-12 shrink-0 items-center justify-center 2xl:mr-4 2xl:h-14 2xl:w-14">
-        {iconAsset ? (
-          <img alt="" aria-hidden="true" className="h-12 w-12 object-contain drop-shadow-sm 2xl:h-14 2xl:w-14" src={iconAsset} />
-        ) : Icon ? (
-          <Icon aria-hidden="true" className={`${toneText[metric.tone]} h-12 w-12`} strokeWidth={2.9} />
-        ) : null}
+        <img alt="" aria-hidden="true" className="h-12 w-12 object-contain drop-shadow-sm 2xl:h-14 2xl:w-14" draggable={false} src={iconAsset} />
       </div>
       <div className="min-w-0">
         <p className="truncate text-[11px] font-extrabold text-slate-900 2xl:text-[13px]">{metric.label}</p>
@@ -330,7 +316,7 @@ function ActionPanel({ actions }: { actions: AreaAction[] }) {
       </div>
       <div className="grid flex-1 grid-cols-2 content-stretch gap-3">
         {actions.map((action) => {
-          const Icon = actionIconByKey[action.iconKey];
+          const iconAsset = actionIconAssets[action.iconKey];
 
           return (
             <button
@@ -340,7 +326,7 @@ function ActionPanel({ actions }: { actions: AreaAction[] }) {
               key={action.id}
               type="button"
             >
-              <Icon aria-hidden="true" size={24} />
+              <img alt="" aria-hidden="true" className="h-5 w-5 shrink-0 object-contain drop-shadow-sm 2xl:h-6 2xl:w-6" draggable={false} src={iconAsset} />
               {action.label}
             </button>
           );
